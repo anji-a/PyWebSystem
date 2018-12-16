@@ -1,0 +1,61 @@
+input[type=text],
+input[type=password] {
+  font-size: 12px;
+}
+html,body{
+    height:100%;
+}
+#wrapper{
+    height:100%;
+}
+#WebHeader{
+    height:9%;
+}
+#work_wrapper{
+    height:91%;
+}
+/*.container-flud,.row.no-gutters{
+    height:100%;
+}*/
+.h100{
+    height:100%;
+}
+.fz10{
+    font-size: 10px;
+}
+.fz15{
+    font-size: 15px;
+}
+.fz20{
+    font-size: 20px;
+}
+
+
+
+
+.loading1 {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    opacity:    .8;
+    background: rgba( 255, 255, 255, .8 )
+                url('/media/ajax-loader.gif')
+                50% 50%
+                no-repeat;
+}
+
+/* When the body has the loading class, we turn
+   the scrollbar off with overflow:hidden */
+body.loading {
+    overflow: hidden;
+}
+
+/* Anytime the body has the loading class, our
+   modal element will be visible */
+body.loading .loading1 {
+    display: block;
+}

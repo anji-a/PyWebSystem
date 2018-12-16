@@ -16,7 +16,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, "templates")
 STATIC_DIR = os.path.join(BASE_DIR, "static")
-MEDIA_ROOT= os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'PyWebSystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR,],
+        'DIRS': [TEMPLATE_DIR, ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,7 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'PyWebSystem.wsgi.application'
-
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -79,14 +79,13 @@ WSGI_APPLICATION = 'PyWebSystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'pyDB',
+        'NAME': 'PyWEB',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': 'localhost',
         'PORT': '5432',
         'ATOMIC_REQUEST': True,
-        ##'ENGINE': 'django.db.backends.sqlite3',
-        ##'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+
     }
 }
 
@@ -132,10 +131,10 @@ STATIC_URL = '/static/'
 
 MEDIA_URL = '/media/'
 
-STATICFILES_DIRS=[
+STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
 # Login URL
 
-LOGIN_URL='/login'
+LOGIN_URL = '/login'

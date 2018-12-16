@@ -1,0 +1,47 @@
+<form method="POST" action="/processrequest" data-controlset="{}" id="formSample">
+    <fieldset class="border p-2">
+        <legend class="w-auto fz15">Create New Element</legend>
+        <div class="container-flud">
+              <div class="form-group">
+                <label for="formGroupExampleInput">Element Name:</label>
+                <input type="text" name="element" class="form-control" id="formGroupExampleInput" placeholder="Enter Element Name">
+              </div>
+              <div class="form-group">
+                <label for="formGroupExampleInput3">Element Type:</label>
+                <select name="element_type" class="form-control" id="formGroupExampleInput3">
+                    <option>Directory</option>
+                    <option>Section</option>
+                    <option>Method</option>
+                </select>
+              </div>
+              <div class="form-group" id="dirNameformgroup">
+                <label for="formGroupExampleInput2">Directory Name:</label>
+                <input type="text" name="dir" class="form-control" id="formGroupExampleInput2" placeholder="Enter Directory Name">
+              </div>
+            <button type="submit" onclick="processrequest(event)" class="btn btn-primary" data-controlset='{"actionset":{"onclick":[{"action":"Close"},{"action":"openwindow","type":"tab","location":"workTabs","element":"Sample","data_element":"static"}]}}'>Submit</button>
+        </div>
+    </fieldset>
+<script>
+    $('#formGroupExampleInput3').on('change', function () {
+        //location.reload();
+        //$("#formSample").load(" #formSample > *");
+        //$("#formSample").load(location.href+" #formSample>*","");
+        //$("#formSample").html($("#formSample").html());
+        reloadscripts()
+    });
+
+    if($('#formGroupExampleInput3').val()=="Directory"){
+        $('#dirNameformgroup').hide();
+    }else{
+        $('#dirNameformgroup').show();
+    }
+
+    function reloadscripts(){
+        if($('#formGroupExampleInput3').val()=="Directory"){
+            $('#dirNameformgroup').hide();
+        }else{
+            $('#dirNameformgroup').show();
+        }
+    }
+</script>
+</form>

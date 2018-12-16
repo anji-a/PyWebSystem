@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <title>Function</title>
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="contextMenu.js"></script>
+    <script type="text/javascript" src="method.js"></script>
+ </head>
+<body>
+<div class="container p-4" id="method">
+    <!--<div class="row">
+      <div class="col-1 border">
+          <label>S.No</label>
+      </div>
+      <div class="col-1 border">
+          <label>Jump</label>
+      </div>
+      <div class="col-1 border">
+          <label>Pre Condition</label>
+      </div>
+      <div class="col-1 border">
+          <label>Iteration</label>
+      </div>
+      <div class="col-1 border">
+          <label>Scope</label>
+      </div>
+      <div class="col-3 border">
+          <label>Method</label>
+      </div>
+      <div class="col-3 border">
+          <label>Description</label>
+      </div>
+      <div class="col-1 border">
+          <label>Post Condition</label>
+      </div>
+    </div>-->
+    <div class="row p-1 justify-content-end" data-find="row" data-controlset='{"begin-condition": [{"condition":"x=10"},{"condition":"y=10"}]}'>
+        <div class="col-12">
+            <div class="row m-0">
+                <div class="col-5 p-1">
+                        <div class="row m-0">
+                            <div class="col-1 p-1"><div class="row no-gutters"><div class="col"><span class="fa fa-caret-right" style="font-size:30px" data-toggle="collapse" onclick="expandrow(event)"  role="button" aria-expanded="false" ></span></div><div class="col"><label data-find="sno">1</label></div></div></div>
+                            <div class="col-2 p-1"><input data-find="jump" type="text" style="width:inherit"/></div>
+                            <div class="col-2 p-1"><input data-find="condition" type="button" value="Cond" style="width:inherit"  onclick="openConditionWindow(event,'begin-condition')"/></div>
+                            <div class="col-2 p-1"><input data-find="loop" type="button" value="For" style="width:inherit" onclick="openForWindow(event,'loop')"/></div>
+                            <div class="col-5 p-1"><input data-find="scope" type="text" style="width:inherit" alt="Scope"/></div>
+                        </div>
+                </div>
+                <div class="col-6 p-1">
+                       <div class="row m-0">
+                            <div class="col-6 p-1"><div class="row m-0"><div class="col-1 p-0"><span class="fa fa-caret-right" style="font-size:30px" data-toggle="collapse" onclick="expandMethod(event)"  role="button" aria-expanded="false" ></span></div><div class="col-11 p-0"><input data-find="method" type="text" style="width:inherit" alt="Method"/></div></div></div>
+                            <div class="col-6 p-1"><input data-find="description" type="text" style="width:inherit" alt="Description"/></div>
+                        </div>
+                </div>
+                <div class="col-1 p-1">
+                    <div class="row m-0">
+                        <div class="col-10 p-1"><input data-find="postcondition" type="button" value="Cond" style="width:inherit" onclick="openConditionWindow(event,'end-condition')"/></div>
+                        <div class="col-2 p-1"><h4><a class="fa fa-trash" aria-hidden="true" onclick="removeElement(event)" href="#"></a></h4></div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="row no-gutters">
+                        <!-- Collapse Example -->
+                <div class="collapse col-12" data-find="row-collapse">
+                  <div class="card card-body">
+                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                  </div>
+                </div>
+            </div>
+            <div class="row no-gutters pl-5"><!-- Collapse Example --><div class="collapse col-12" data-find="row-child-collapse"><div class="card card-body p-0"></div></div></div>
+        </div>
+    </div>
+</div>
+<div class="container p-2">
+    <input type="button" value="Add Method" id="add_method"/>
+</div>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-backdrop="static" data-toggle="modal" data-target="#exampleModal">
+  Launch demo modal
+</button>
+<!-- condition Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container" id="condition">
+            <div class="row">
+                <div class="col-1"><label>S.No</label></div>
+                <div class="col-5"><label>Condition</label></div>
+                <div class="col-2"><label>True</label></div>
+                <div class="col-1"><label>Jump</label></div>
+                <div class="col-2"><label>False</label></div>
+                <div class="col-1"><label>Jump</label></div>
+
+                <div class="col-1"><label>1</label></div>
+                <div class="col-5"><input type="text" style="width:inherit"></div>
+                <div class="col-2"><input type="text" style="width:inherit"></div>
+                <div class="col-1"><input type="text" style="width:inherit"></div>
+                <div class="col-2"><input type="text" style="width:inherit"></div>
+                <div class="col-1"><input type="text" style="width:inherit"></div>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-secondary" id="add_condition">Add Condition</button>
+        <button type="button" class="btn btn-primary" id="save_condition">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- loop Modal -->
+<div class="modal fade" id="loopmodal" tabindex="-1" role="dialog" aria-labelledby="loopmodalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="loopmodalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container" id="Loop">
+            <div class="row">
+                <div class="col-12">
+                    <label for="loopcheck">
+                        <input type="checkbox" id="loopcheck" />
+                        Enable
+                    </label>
+                </div>
+
+                <div class="col-12">
+                    <div id="loopdiv" style="display: none">
+                       <div class="form-group">
+                          <label for="checktype">Select list:</label>
+                          <select class="form-control" id="checktype">
+                            <option>Dick</option>
+                            <option>List</option>
+                            <option>For</option>
+                          </select>
+                        </div>
+
+                    </div>
+                </div>
+                <script>
+                    $(function () {
+                        $("#loopcheck").click(function () {
+                            if ($(this).is(":checked")) {
+                                $("#loopdiv").show();
+
+                            } else {
+                                $("#loopdiv").hide();
+
+                            }
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="save_loop">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+<ul id="contextMenu" class="dropdown-menu" role="menu" style="display:none" >
+    <li><a tabindex="-1" href="#" class="dropdown-item" data-click="addchild(event)">Add Child</a></li>
+    <li><a tabindex="-1" href="#" class="dropdown-item" onclick="copyTag(event)">Copy</a></li>
+    <li><a tabindex="-1" href="#" class="dropdown-item" onclick="cuttag(event)">Cut</a></li>
+    <li class="dropdown-divider"></li>
+    <li><a tabindex="-1" href="#" class="dropdown-item" onclick="pastetag(event)">Paste</a></li>
+</ul>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script>
+    /*$(document).on("contextmenu","[data-find='sno']",function(e){
+        console.log($(e.target))
+        $(e.target).contextMenu({
+            menuSelector: "#contextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                /*var msg = "You selected the menu item '" + selectedMenu.text() +
+                    "' on the value '" + invokedOn.text() + "'";
+                alert(msg);*/
+                /*jQuery.data( document.body, "parent", $(invokedOn));
+                eval(selectedMenu.attr('data-click'));
+                jQuery.removeData( document.body, "parent" );
+            }
+        });
+    });*/
+
+    $("[data-find='sno']").contextMenu({
+        menuSelector: "#contextMenu",
+        menuSelected: function (invokedOn, selectedMenu) {
+            /*var msg = "You selected the menu item '" + selectedMenu.text() +
+                "' on the value '" + invokedOn.text() + "'";
+            alert(msg);*/
+            jQuery.data( document.body, "parent", $(invokedOn));
+            eval(selectedMenu.attr('data-click'));
+            jQuery.removeData( document.body, "parent" );
+        }
+    });
+    function defineContext(){
+
+        $("[data-find='sno']").contextMenu({
+            menuSelector: "#contextMenu",
+            menuSelected: function (invokedOn, selectedMenu) {
+                /*var msg = "You selected the menu item '" + selectedMenu.text() +
+                    "' on the value '" + invokedOn.text() + "'";
+                alert(msg);*/
+                jQuery.data( document.body, "parent", $(invokedOn));
+                eval(selectedMenu.attr('data-click'));
+                jQuery.removeData( document.body, "parent" );
+            }
+        });
+    }
+
+    $("#add_method").click(function(){
+        $("#method").append('<div class="row p-1" data-find="row" data-controlset={"begin-condition":[{"condition":"x=10"},{"condition":"y=10"}]}><div class="col-12"><div class="row m-0"><div class="col-5 p-1"><div class="row m-0"><div class="col-1 p-1"><div class="row no-gutters"><div class="col"><span class="fa fa-caret-right" style="font-size:30px" data-toggle="collapse" onclick=expandrow(event)  role="button" aria-expanded="false" ></span></div><div class="col"><label data-find="sno">1</label></div></div></div><div class="col-2 p-1"><input data-find="jump" type="text" style="width:inherit"/></div><div class="col-2 p-1"><input data-find="condition" type="button" value="Cond" style="width:inherit"  onclick=openConditionWindow(event,"begin-condition")></div><div class="col-2 p-1"><input data-find="loop" type="button" value="For" style="width:inherit" onclick=openForWindow(event,"loop")></div><div class="col-5 p-1"><input data-find="scope" type="text" style="width:inherit" alt="Scope"/></div></div></div><div class="col-6 p-1">   <div class="row m-0"><div class="col-6 p-1"><div class="row m-0"><div class="col-1 p-0"><span class="fa fa-caret-right" style="font-size:30px" data-toggle="collapse" onclick=expandMethod(event)  role="button" aria-expanded="false" ></span></div><div class="col-11 p-0"><input data-find="method" type="text" style="width:inherit" alt="Method"/></div></div></div><div class="col-6 p-1"><input data-find="description" type="text" style="width:inherit" alt="Description"/></div></div></div><div class="col-1 p-1"><div class="row m-0"><div class="col-10 p-1"><input data-find="postcondition" type="button" value="Cond" style="width:inherit" onclick=openConditionWindow(event,"end-condition")></div><div class="col-2 p-1"><h4><a class="fa fa-trash" aria-hidden="true" onclick=removeElement(event) href="#"></a></h4></div></div></div></div><div class="row no-gutters"><!-- Collapse Example --><div class="collapse col-12" data-find="row-collapse">  <div class="card card-body">Empty Section </div></div></div><div class="row no-gutters pl-5"><!-- Collapse Example --><div class="collapse col-12" data-find="row-child-collapse"><div class="card card-body p-0"></div></div></div></div></div>');
+        defineContext();
+    });
+    $("#add_condition").click(function(){
+
+        $("#condition").append('<div class="row"><div class="col-1" data-key="Sno"><label>1</label></div><div class="col-4" data-key="condition"><input type="text" value="" style="width:inherit"></div><div class="col-2" data-key="if_true"><div class="form-group"><select class="form-control"><option>Continue</option><option>Skip Condition</option><option>Skip Method</option><option>Jump</option></select></div></div><div class="col-1" data-key="TrueJump"><input type="text" value="" style="width:inherit"></div><div class="col-2" data-key="if_false"><div class="form-group" value="Skip Condition"><select class="form-control"><option>Continue</option><option>Skip Condition</option><option>Skip Method</option><option>Jump</option></select></div></div><div class="col-1" data-key="FalseJump"><input type="text" value="" style="width:inherit"></div><div class="col-1"><h4><a class="fa fa-trash" aria-hidden="true" onclick="removeCondition(event)" href="#"></a></h4></div></div>')
+    });
+    $('#save_condition').click(function(){
+        // '{"begin-condition": [{"condition":"x=10"},{"condition":"y=10"}]}'
+        var begincondition = [];
+        $('#condition').children().each(function (index, element) {
+            if(index==0){
+                return true;
+            }
+            condition = {};
+            console.log($(element)); // "this" is the current element in the loop
+            condition["condition"] = $(element).find('[data-key="condition"]').find("input").val();
+            condition["if_true"] = $(element).find('[data-key="if_true"]').find("select").val();
+            condition["truejump"] = $(element).find('[data-key="TrueJump"]').find("input").val();
+            condition["if_false"] = $(element).find('[data-key="if_false"]').find("select").val();
+            condition["falsejump"] = $(element).find('[data-key="FalseJump"]').find("input").val();
+
+            begincondition.push(condition);
+        });
+        condition = jQuery.data( document.body, "parent").closest('[data-find="row"]').attr("data-controlset") || '{}';
+        condition = jQuery.parseJSON( condition );
+        condition[$('#exampleModal').find('#'+$('#exampleModal').attr('aria-labelledby')).text()] = begincondition;
+        condition = JSON.stringify(condition);
+        console.log(condition);
+
+        jQuery.data( document.body, "parent").closest('[data-find="row"]').attr("data-controlset", condition);
+        jQuery.removeData( document.body, "parent" );
+        $('#exampleModal').modal('hide');
+    });
+    function openConditionWindow(e,conditionType){
+
+        condition = $(e.target).closest('[data-find="row"]').attr("data-controlset") || '{}';
+        jQuery.data( document.body, "parent", $(e.target));
+        condition = jQuery.parseJSON( condition );
+        rowdiv = '<div class="row"><div class="col-1"><label>S.No</label></div><div class="col-5"><label>Condition</label></div><div class="col-2"><label>True</label></div><div class="col-1"><label>Jump</label></div><div class="col-2"><label>False</label></div><div class="col-1"><label>Jump</label></div></div>';
+        $.each( condition[conditionType], function( key, value ) {
+          rowdiv += '<div class="row" data-key='+key+'>'
+          var falsejump = value["falsejump"] || "";
+          var if_false = value["if_false"] || "";
+          var truejump = value["truejump"] || "";
+          var if_true = value["if_true"] || "";
+          var condition = value["condition"] || "";
+          rowdiv += '<div class="col-1" data-key="Sno"><label>'+key+'</label></div><div class="col-4" data-key="condition"><input type="text" value="'+condition+'" style="width:inherit"></div><div class="col-2" data-key="if_true"><div class="form-group"><select class="form-control"><option>Continue</option><option>Skip Condition</option><option>Skip Method</option><option>Jump</option></select></div></div><div class="col-1" data-key="TrueJump"><input type="text" value="'+truejump+'" style="width:inherit"></div><div class="col-2" data-key="if_false"><div class="form-group" value="Skip Condition"><select class="form-control"><option>Continue</option><option>Skip Condition</option><option>Skip Method</option><option>Jump</option></select></div></div><div class="col-1" data-key="FalseJump"><input type="text" value="'+ falsejump +'" style="width:inherit"></div><div class="col-1"><h4><a class="fa fa-trash" aria-hidden="true" onclick="removeCondition(event)" href="#"></a></h4></div>'
+          rowdiv += '</div>';
+        });
+
+        $("#condition").empty();
+        $("#condition").append(rowdiv);
+        $('#exampleModal').modal({'show':true,backdrop:'static'});
+        $('#exampleModal').find('#'+$('#exampleModal').attr('aria-labelledby')).text(conditionType);
+        $.each( condition[conditionType], function( key, value ) {
+            var if_false = value["if_false"] || "";
+            var if_true = value["if_true"] || "";
+            $('#exampleModal').find('[data-key='+key+']').find('[data-key="if_false"]').find('select').val(if_false);
+            $('#exampleModal').find('[data-key='+key+']').find('[data-key="if_true"]').find('select').val(if_true);
+        });
+
+    }
+    function openForWindow(e,loop){
+        condition = $(e.target).closest('[data-find="row"]').attr("data-controlset") || '{}';
+        jQuery.data( document.body, "parent", $(e.target));
+        condition = jQuery.parseJSON( condition );
+        conditionloop = condition['loop'] || {};
+        enable = conditionloop['enable'] || false;
+        type = conditionloop['type'] || "Dick";
+        console.log($('#loopmodal').find('#loopcheck'));
+        $('#loopmodal').find('#checktype').val(type)
+        $('#loopmodal').find('#loopcheck').prop("checked", enable);
+        if(enable==false){
+            $('#loopmodal').find('#loopdiv').css({'display': 'none'});
+        }
+
+        $('#loopmodal').modal({'show':true,backdrop:'static'});
+
+    }
+    function expandMethod(e){
+        console.log($(e.target).closest(".row").find('[data-find="method"]').val());
+
+        if($(e.target).closest(".row").find('[data-find="method"]').val()==""){
+            if ($(e.target).attr("class")=="fa fa-caret-right"){
+                $(e.target).attr("class","fa fa-caret-down");
+            }else{
+                $(e.target).attr("class","fa fa-caret-right");
+            }
+        }else{
+            if ($(e.target).attr("class")=="fa fa-caret-right"){
+                $(e.target).attr("class","fa fa-caret-down");
+                $(e.target).closest("[data-find='row']").find("[data-find='row-collapse']").collapse('show');
+            }else{
+                $(e.target).attr("class","fa fa-caret-right");
+                $(e.target).closest("[data-find='row']").find("[data-find='row-collapse']").collapse('hide');
+            }
+            //console.log($(e.target).closest("[data-find='row']").find("[data-find='row-collapse']").collapse('toggle'))
+
+        }
+
+    }
+    $('#save_loop').click(function(){
+        enable = $(this).closest('#loopmodal').find('#loopcheck').prop('checked');
+        if(enable==true){
+            type = $(this).closest('#loopmodal').find('#checktype').val();
+        }else{
+            type="";
+        }
+        loop = {"enable":enable,"type":type};
+        condition = jQuery.data( document.body, "parent").closest('[data-find="row"]').attr("data-controlset") || '{}';
+        condition = jQuery.parseJSON( condition );
+        condition['loop'] = loop;
+        condition = JSON.stringify(condition);
+        console.log(condition);
+        jQuery.data( document.body, "parent").closest('[data-find="row"]').attr("data-controlset", condition);
+        jQuery.removeData( document.body, "parent" );
+        $('#loopmodal').modal('hide');
+    });
+</script>
+</body>
+</html>
