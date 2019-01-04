@@ -12,11 +12,12 @@
             <button id="HtmlWorkSpace" onclick="processevent(event)" data-controlset='{"location":"PWModal","element":"Sample","data_element":"static","actiontype":"modal"}' >Open Model Window</button>
             <button id="createNew" onclick="processevent(event)" data-controlset='{"location":"workTabs","element":"Sample","data_element":"static","actiontype":"tab"}'>Create New</button>
             <button id="Compile" data-location="workTabs" >Compile</button>
+            <input type="button" value="New Window" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"memory_check", "purpose":"pw_memory"}]}]}'>
             <button id="Run" data-location="workTabs" onclick="onClickRun(event)" >Run</button>
         </fieldset>
         <fieldset class="border p-2">
             <legend class="w-auto fz15"> Sample Buttons </legend>
-            <input type="button" value="New Element" onclick="processevent(event)" data-controlset='{"location":"PWModal","element":"pw_new_element","data_element":"static","actiontype":"modal"}'>
+            <input type="button" value="New Element" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"modelwindow", "form":"pw_new_element", "target":"PWModal"}]}]}'>
         </fieldset>
 	</div>
 
@@ -44,3 +45,4 @@
     </div>
   </div>
 </div>
+

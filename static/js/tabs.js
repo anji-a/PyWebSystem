@@ -44,7 +44,11 @@ function addTab(event,dataSet){
             tabs.find( "ul[data-tabid='"+dataSet["location"]+"']" ).append( li );
             tabs.append( "<div id='" + id + "'></div>" );
             //tabs.append(tabContentHtml);
-            $('#'+id).load('UI_Include', dataSet);
+            // data object will contain data control set data
+            data = $(event.target).serializeArray();
+        //data1 = json.loads(dataset)
+            data.push({name:'data-controlset',value:JSON.stringify(dataset)});
+            $('#'+id).load('UI_Include', data);
 
             //includeHTML();
             //$('#'+id).addClass('h95 paddingZero');
@@ -91,6 +95,28 @@ function id2Index(tabsId, srcId)
 		}
 	}
 	return index;
+}
+
+
+function addTabByHtmlLocationName(html,location,tabname){
+    var tabs=$('#'+location).tabs();
+    var id = tabname,
+        li = "<li><a href='#"+id+"'>"+id+"</a> <span data-location='"+location+"' class='ui-icon ui-icon-close' id= 'close-tab' role='presentation'>Remove Tab</span></li>",
+        tabContentHtml = id;
+        //html = $.parseHTML( tabContentHtml );
+       if($("#"+id).length==0){
+            tabs.find( "ul[data-tabid='"+location+"']" ).append( li );
+            tabs.append( "<div id='" + id + "'></div>" );
+            //tabs.append(tabContentHtml);
+            //$('#'+id).load('UI_Include', dataSet);
+            $('#'+id).html(html);
+            //includeHTML();
+            //$('#'+id).addClass('h95 paddingZero');
+            tabs.tabs("refresh");
+
+            //$('#'+$(event.target).attr('data-location')).tabs("option","active",1);
+            tabs.tabs("option","active",id2Index('#'+location,'#'+id));
+       }
 }
 
 // Used to close the tab

@@ -21,6 +21,7 @@ from django.conf import settings
 from PyWebSystem.Web import views
 from PyWebSystem.PyUtil import pw_ui_include
 from PyWebSystem.PyUtil import ProcessRequest
+from PyWebSystem.PyUtil import pw_memory
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -30,4 +31,5 @@ urlpatterns = [
     path('logout', views.logout_app),
     path('UI_Include', pw_ui_include.pw_ui_include),
     path('processrequest', ProcessRequest.process_request),
+    path('memory_check', pw_memory.memory_check),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

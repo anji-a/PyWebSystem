@@ -1,7 +1,8 @@
-<!--{% include "PyWeb/Sample.html" %}-->
 {% if data_element == "static"%}
     {% with templateName="PyWeb/"|add:element|add:".html" %}
-        {% include templateName %}
+        {% autoescape off %}
+            {% include templateName %}
+        {% endautoescape %}
     {% endwith %}
 {% else %}
     {% autoescape off %}

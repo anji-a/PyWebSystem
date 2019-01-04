@@ -73,6 +73,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'PyWebSystem.wsgi.application'
 SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+        #'LOCATION': '/var/tmp/django_cache',
+        'LOCATION': 'localhost:11211',
+        'TIMEOUT': None,
+    }
+}
+
+
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
