@@ -15,7 +15,7 @@ from PyWebSystem.PyUtil.ProcessEventData import process_event
 def process_request(request):
     session = get_session(request.session.session_key)
     # /////////logic starts here /////////////
-    params = {"Etype": "Params"}
+    params = {"Etype": "Params", "Session": session}
     context = update_request(request, session, params=params)
     # print(params)
     print("....................")

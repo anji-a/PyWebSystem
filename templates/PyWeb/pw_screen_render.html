@@ -1,11 +1,11 @@
-{% if data_element == "static"%}
-    {% with templateName="PyWeb/"|add:element|add:".html" %}
+{% if context.data_element == "static"%}
+    {% with templateName="PyWeb/"|add:context.element|add:".html" %}
         {% autoescape off %}
             {% include templateName %}
         {% endautoescape %}
     {% endwith %}
 {% else %}
     {% autoescape off %}
-        {{ element }}
+        {{ context.element }}
     {% endautoescape %}
 {% endif %}

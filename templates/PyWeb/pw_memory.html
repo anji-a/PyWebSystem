@@ -6,7 +6,7 @@
     <div class="row no-gutters h100">
         <div class="col-3 border border-primary">
             {% autoescape off %}
-                {% load TagUtility %}{% tag_utility con=context%}
+                {% load TagUtility %}{% tag_utility pw_tag="treeview" scope=context%}
             {% endautoescape %}
         </div>
         <div class="col-9 border border-primary p-1" id="divId">

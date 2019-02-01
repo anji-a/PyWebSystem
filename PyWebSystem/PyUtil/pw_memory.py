@@ -41,20 +41,20 @@ def memory_verification(context={}, action={}, *args, **kwargs):
     selected_dick["select_dict"] = keylist[-1]
     #html = render_html(session)
     html = render_to_string('PyWeb/pw_memory.html', context={"context": session})
-
+    #window.open("https://www.w3schools.com", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400");
     soup = BeautifulSoup(html, 'html.parser')
     html = soup.find(id=action.get("target", "pw_memory_window"))
     html = str(html)
-    print(html)
-    #print(session)
+    #print(html)
+    print(session)
     html = "".join([line.strip("\n\t") for line in html])
     html = html.replace('"', '\\"')
     html = html.replace("/*", "\\/*")
     html = html.replace("*/", "*\\/")
     if context.get("element_html", "") == "":
         if action.get("select_dict", "$DOperatorID") == "$DOperatorID":
-            context["element_html"] = "var memorywindow = window.open('', 'Memory_check', 'width=800,height=500'); memorywindow.document.write(\"" + html + "\");"
+            context["element_html"] = "var memorywindow = window.open('', 'Memory_check', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=800,height=800'); memorywindow.document.write(\"" + html + "\");"
         else:
             context["element_html"] = "$('#"+action.get("target", "pw_memory_window")+"').html(\"" + html + "\")"
     else:
-        context["element_html"] += "var memorywindow = window.open('', 'Memory_check', 'width=800,height=500'); memorywindow.document.write(\"" + html + "\");"
+        context["element_html"] += "var memorywindow = window.open('', 'Memory_check', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=800,height=800'); memorywindow.document.write(\"" + html + "\");"

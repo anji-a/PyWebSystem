@@ -1,6 +1,6 @@
 from bs4 import BeautifulSoup
 import json, sys
-from FindHTMLChildNodes import find_child_codes
+from PyWebSystem.PyUtil.FindHTMLChildNodes import find_child_codes
 
 def process_parse():
     code = {"details": {"name": "Sample1"}, "methods": []}

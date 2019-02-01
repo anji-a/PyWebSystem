@@ -2,7 +2,8 @@ import random
 import string
 from PyWebSystem.PyUtil.DickUpdate import dict_loop, list_loop
 
-def tree_view(context={}):
+
+def treeview(context={}, *args, **kwargs):
     id = ''.join(random.choice(string.ascii_uppercase) for _ in range(6))
     html = "<ul id="+id+">"
     #onclick="processevent(event)" data-controlset='{"element":"pw_memory","data_element":"static","actiontype":"window"}'

@@ -1,3 +1,15 @@
+def exe_code_from_local(context, *args, **kwargs):
+    context = kwargs.get("scope", {})
+    tagname = kwargs.get("pw_tag", "")
+    #print(kwargs)
+    if tagname is not "":
+        filename = "C:/Users/AF86407/Documents/GitHub/PyWebSystem/PyWebSystem/PyUtil/"+tagname+".py"
+        fileopen = open(filename, "r")
+        filecode = fileopen.read()
+        fileopen.close()
+        code_obj = compile(filecode, tagname, 'exec')
+        exec(code_obj, locals())
+        return locals()[tagname](context, args, kwargs)
 
 
 def executecode(filename1, filename2):

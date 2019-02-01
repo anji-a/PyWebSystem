@@ -16,3 +16,9 @@ def unzip_gz_file(inputfile, outputfile, filename):
 
 
 # unzip_gz_file("C:/Users/AF86407/Desktop/PegaLogAnalyzer/Logs", "C:/Users/AF86407/Desktop/PegaLogAnalyzer/Logs", "PegaRULES-10-29-2018-1.log.gz")
+
+if __name__ == '__main__':
+    print("Popula Script start")
+    unzip_gz_file("//va10papnas005b.us.ad.wellpoint.com/IngenioRx/IPS/DEV/Prod/Logs/IPS-PROD-Logs/322","//va10papnas005b.us.ad.wellpoint.com/IngenioRx/IPS/DEV/Prod/Logs/IPS-PROD-Logs/322","PegaRULES-01-13-2019-1.log.gz")
+    # get_PyElement()
+    print("Popula Script end")

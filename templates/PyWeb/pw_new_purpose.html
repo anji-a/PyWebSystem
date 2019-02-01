@@ -1,7 +1,14 @@
 <div class="container-flud">
     <div class="row">
         <div class="col">
-            {% include "PyWeb/pw_new_element.html" %}
+            {% include "PyWeb/pw_web_header.html" %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {% autoescape off %}
+                {% load TagUtility %}{% tag_utility pw_tag="pw_navigation" scope=context%}
+            {% endautoescape %}
         </div>
     </div>
 </div>
