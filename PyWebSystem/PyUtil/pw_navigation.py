@@ -1,13 +1,16 @@
 from bs4 import BeautifulSoup
 from PyWebSystem.PyUtil.pw_extra_methods import id_generator
-from PyWebSystem.PyUtil.DickUpdate import list_loop
+from PyWebSystem.PyUtil.DickUpdate import list_loop, dict_loop
+import json
 
 
 def pw_navigation(context={}, *args, **kwargs):
     # need navigation element name to load data
     sample_data = {"name": "Sample", "settings": {"MobileUse": "Yes"}, "action_items": [
-        {"actiontype": "Link", "actionname": "SampleLink", "action_data": {}},
-        {"actiontype": "Button", "actionname": "SampleButton", "action_data": {}},
+        {"actiontype": "Link", "actionname": "SampleLink", "actions": {"actionset": [{}]}},
+        {"actiontype": "Button", "actionname": "ModelPopup", "actions": {"actionset": [{"event": "click", "eventdata": [{"action": "modelwindow", "form": "pw_new_element", "target": "PWModal"}]}]}},
+        {"actiontype": "Button", "actionname": "SaveForm", "actions": {"actionset": [{"event": "click", "eventdata": [
+            {"action": "exeaction", "actionname": "saveElement"}]}]}},
     ]}
     html = ""
     soup = BeautifulSoup(html, "lxml")
@@ -57,6 +60,14 @@ def pw_prepare_button(item={}, soup=None):
     button_tag = soup.new_tag("button")
     button_tag["class"] = "nav-button"
     button_tag.string = item.get("actionname", "")
+    #print(item.get("actions", {}))
+    button_tag["data-controlset"] = json.dumps(item.get("actions", {}))
+    # need to add event handle logic like onclick, onblur
+    for key, item, path in dict_loop(item.get("actions", {})):
+        print(path, "\n")
+        button_tag["onclick"] = "processeventaction(event)"
+
+
     li_tag.append(button_tag)
     return li_tag
 

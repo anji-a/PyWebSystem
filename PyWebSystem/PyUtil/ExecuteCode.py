@@ -3,7 +3,7 @@ def exe_code_from_local(context, *args, **kwargs):
     tagname = kwargs.get("pw_tag", "")
     #print(kwargs)
     if tagname is not "":
-        filename = "C:/Users/AF86407/Documents/GitHub/PyWebSystem/PyWebSystem/PyUtil/"+tagname+".py"
+        filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/PyUtil/"+tagname+".py"
         fileopen = open(filename, "r")
         filecode = fileopen.read()
         fileopen.close()
@@ -26,7 +26,17 @@ def executecode(filename1, filename2):
     locals()["Sample"](dick=dick1).process()
     #locals()["sam"]()
 
-
+def executeaction(context={}, action={}, *args, **kwargs):
+    #print("hello", action)
+    tagname = action.get("actionname", "")
+    filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/PyUtil/" + tagname + ".py"
+    fileopen = open(filename, "r")
+    filecode = fileopen.read()
+    fileopen.close()
+    code_obj = compile(filecode, tagname, 'exec')
+    exec(code_obj, locals())
+    return locals()[tagname](context, action, args, kwargs)
+    pass
 
 if __name__ == '__main__':
     print("Popula Script start")

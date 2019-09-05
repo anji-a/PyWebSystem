@@ -2,7 +2,7 @@ from django.db import models
 
 
 # Create your models here.
-class PTElement(models.Model):
+class PYElement(models.Model):
     element_name = models.CharField(max_length=50, unique=True)
     element_createddatetime = models.DateTimeField()
     element_updatedatetime = models.DateTimeField()
@@ -11,6 +11,9 @@ class PTElement(models.Model):
     element_mode = models.CharField(max_length=50)
     element_displayname = models.CharField(max_length=50)
     element_dir = models.CharField(max_length=100)
+
+    def pyelement(self):
+        print("\n\n\n")
 
     def set_data(self, data):
         self.element_name = data.get('element_name', '')

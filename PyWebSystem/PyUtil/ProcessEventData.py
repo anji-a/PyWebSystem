@@ -1,6 +1,6 @@
 from PyWebSystem.PyUtil.ModelWindow import model_window, model_close, landing_tab
 from PyWebSystem.PyUtil.pw_memory import memory_verification
-
+from PyWebSystem.PyUtil.ExecuteCode import executeaction
 
 def process_event(context={}, *args, **kwargs):
     eventdata = context.get("EventData", {})
@@ -11,7 +11,7 @@ def process_event(context={}, *args, **kwargs):
         if controldata.get("eventtype", "") == item.get("event", ""):
             eventdata = item.get("eventdata", [])
             for iteration, action in enumerate(eventdata):
-                #print(action)
+                print(action)
                 if action.get("action", "") == "modelwindow":
                     model_window(context, action, params=kwargs.get("params", {}))
                 elif action.get("action", "") == "memory_check" or action.get("action", "") == "refresh_memory":
@@ -21,3 +21,5 @@ def process_event(context={}, *args, **kwargs):
                     model_close(context, action, params=kwargs.get("params", {}))
                 elif action.get("action", "") == "landingtab":
                     landing_tab(context, action, params=kwargs.get("params", {}))
+                elif action.get("action", "") == "exeaction":
+                    executeaction(context, action, params=kwargs.get("params", {}))

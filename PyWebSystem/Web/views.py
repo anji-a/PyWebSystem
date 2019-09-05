@@ -39,7 +39,7 @@ def login_app(request):
             else:
                 return render(request, 'PyWeb/login.html',
                               context={'login_message': "Login not success Please try to re login"})
-        except:
+        except Exception:
             print(sys.exc_info())
     else:
         print("its get method")

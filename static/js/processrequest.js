@@ -70,11 +70,18 @@ function processaction(actionset,event,response){
 function processeventaction(event){
     console.log(event);
     var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
-    var targetdata = $(event.target).closest("[data-find='data_root']").attr("data-element");
+    var targetdata = $(event.target).closest("[data-find='data_root']").attr("data-element");// used to find portal type
 
     dataset.root_data = targetdata;
     dataset.eventtype = event.type;
-    console.log(dataset)
+    //dataset.roothtml = $(event.target).closest("[id='pw_new_purpose']");
+    // need to update pw_new_purpose with dynamic element value
+    var elem = document.getElementById("pw_new_purpose");
+    if(elem != null && elem !== undefined){
+        console.log(elem.outerHTML);
+        dataset.roothtml = elem.outerHTML;
+    }
+    console.log(dataset);
     data = $(event.target).serializeArray();
         //data1 = json.loads(dataset)
     data.push({name:'data-controlset',value:JSON.stringify(dataset)});
