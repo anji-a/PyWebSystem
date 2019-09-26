@@ -1,0 +1,28 @@
+{% load staticfiles %}
+<html>
+        <head>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <link rel="stylesheet" href="{% static 'css/py_portal.css' %}" >
+            <link rel="stylesheet" href="{% static 'css/py_tabs.css' %}" >
+            <link rel="stylesheet" href="{% static 'css/py_editor.css' %}" >
+            <script type="text/javascript" src="{% static 'js/py_tabs.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/py_util.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/extramethods.js' %}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row h10">
+                <div class="column"></div>
+            </div>
+            <div class="row h90">
+                <div class="column c10">
+                    {% include "PyWeb/py_droparea.html" %}
+                </div>
+                <div class="column c2">
+                    {% include "PyWeb/py_dragarea.html" %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

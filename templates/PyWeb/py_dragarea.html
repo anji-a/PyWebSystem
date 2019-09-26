@@ -1,0 +1,37 @@
+<div class="container"><!-- data parent id need to geenrare random-->
+    <div data-parent="DragList" class="row">
+        <div class="column c12"><!-- data root will be data parent and data target will generate random -->
+            <div class="row" data-target="basic" data-root="DragList" >
+                <div class="column c12"><!-- data id will be data target-->
+                    <button class="collapsible" data-id="basic" data-type="header" onclick="opencollapse(event)">Basic</button>
+                    <div class="row content" data-id="basic" data-type="content">
+                        <div class="column c6 block">
+                            <h5 draggable="true" ondragstart="drag(event)">Label</h5>
+
+                        </div>
+                        <div class="column c6 block">
+                            <h5 draggable="true" ondragstart="drag(event)">Label</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="column c12">
+            <div class="row" data-target="extras" data-root="DragList" >
+                <div class="column">
+                    <button class="collapsible" data-id="extras" data-type="header" onclick="opencollapse(event)">Extras</button>
+                    <div class="row content" data-id="extras" data-type="content">
+                        <div class="column c6 card">
+                            <h5 draggable="true" ondragstart="drag(event)">Label</h5>
+                        </div>
+                        <div class="column c6 card">
+                            <h5 draggable="true" ondragstart="drag(event)">Label</h5>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

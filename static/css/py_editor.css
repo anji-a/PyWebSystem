@@ -1,0 +1,13 @@
+.py-dashed *[data-highlightable] {
+          outline: 1px dashed rgba(170,170,170,0.7);
+          outline-offset: -2px;
+        }
+.py-dashed {
+          outline: 1px dashed rgba(170,170,170,0.7);
+          outline-offset: -2px;
+        }
+/*
+.py-dashed:hover {
+          outline: 1px dashed blue;
+          outline-offset: -2px;
+        }*/

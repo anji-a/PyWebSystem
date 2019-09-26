@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<html>
+        <head>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <link rel="stylesheet" href="{% static 'css/py_portal.css' %}" >
+            <link rel="stylesheet" href="{% static 'css/py_tabs.css' %}" >
+            <link rel="stylesheet" href="{% static 'css/py_editor.css' %}" >
+            <script type="text/javascript" src="{% static 'js/py_tabs.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/py_util.js' %}"></script>
+            <script type="text/javascript" src="{% static 'js/extramethods.js' %}"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="header">
+
+        </div>
+        <div class="workbody">
+            <div data-target="py-home-tab" class="h100">
+                <div class="tab" >
+                    <button class="tablinks active" data-target="abc"  onclick="opentab(event)">London</button>
+                    <button class="tablinks" data-target="Paris" onclick="opentab(event)">Paris <span class="topright" onclick="closeTab(event)">&times</span></button>
+                    <button class="tablinks" data-target="Tokyo" onclick="opentab(event)">Tokyo <span class="topright" onclick="closeTab(event)">&times</span></button>
+                </div>
+
+                <div id="abc" class="tabcontent90 display">
+                    <button onclick="addTab(event)">Add tab</button>
+                    <div class="container80-20column">
+                        <div style="border: 2px solid green;">
+                                {% include "PyWeb/py_droparea.html" %}
+                        </div>
+                        <div style="border: 2px solid green;">
+                                {% include "PyWeb/py_dragarea.html" %}
+                        </div>
+                    </div>
+                </div>
+
+                <div id="Paris" class="tabcontent">
+
+                  <h3>Paris</h3>
+                  <p>Paris is the capital of France.</p>
+                </div>
+
+                <div id="Tokyo" class="tabcontent">
+
+                  <h3>Tokyo</h3>
+                  <p>Tokyo is the capital of Japan.</p>
+                </div>
+            </div>
+
+
+        </div>
+    </body>
+</html>

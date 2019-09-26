@@ -34,8 +34,9 @@ def login_app(request):
                 session[Portal]["Requester"] = Requester
                 session["Requester"] = Requester
                 update_session(session)
-                #print(session, "\n....................")
-                return render(request, 'PyWeb/workspace.html', context=session)
+                # print(session, "\n....................")
+                # return render(request, 'PyWeb/workspace.html', context=session) used to check for old code
+                return render(request, 'PyWeb/py_editor.html', context=session)
             else:
                 return render(request, 'PyWeb/login.html',
                               context={'login_message': "Login not success Please try to re login"})

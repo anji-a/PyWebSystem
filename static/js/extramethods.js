@@ -34,3 +34,23 @@ openwindow = function(url, verb, data, target) {
   document.body.appendChild(form);
   form.submit();
 };
+
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+$(document).ready(function(){
+  $(".py-dashed:last").on("mouseenter", function(event){
+    console.log($(event.target));
+    alert("hi");
+  });
+});
