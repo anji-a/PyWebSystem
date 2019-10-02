@@ -174,6 +174,33 @@ html{
     transition: all 0.2s ease 0s;
     transition-property: box-shadow, color;
 }
+.displayNone{
+    display:none;
+}
+.displayflex{
+    display:flex;
+}
+.w100{
+    width:100%;
+}
+.p0{
+    padding:0px;
+}
+.m0{
+    margin:0px;
+}
+.pycontainer_ul{
+    width:100%;
+    padding:0px;
+    margin:0px;
+    list-style: none;
+}
+.h100px{
+    height:100px;
+}
+.h50px{
+    height:50px;
+}
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
   .column {

@@ -1,0 +1,11 @@
+----------------Editor design------------------
+<div class="row_100" data-type="editor" ondrop="drop(event)" ondragover="allowDrop(event)"><!-- data-type editor used to fire mouse over/out-->
+    <div class="py-dashed pycontainer" data-eleAdd="true">
+        -- Need to add layouts for each layout
+    </div>
+</div>
+----------------layout design------------------
+    <div class="row" data-element="Layout" data-set="{'gt':{},'pt':{'layouttype':'Single'},'at':{}}">
+        <div class=column c6 h25"></div>
+    </div>
+----------------Element design--------------------

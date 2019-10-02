@@ -5,9 +5,43 @@
 .py-dashed {
           outline: 1px dashed rgba(170,170,170,0.7);
           outline-offset: -2px;
+          padding:10px;
         }
 /*
 .py-dashed:hover {
           outline: 1px dashed blue;
           outline-offset: -2px;
         }*/
+.py-comp-selected {
+    outline: 3px solid #3b97e3 !important;
+    outline-offset: -3px;
+}
+.py-comp-select {
+    outline: 1px solid #3b97e3 !important;
+    outline-offset: -3px;
+}
+.py-cv-canvas * {
+    box-sizing: border-box;
+}
+
+.py-editor-toolbar {
+    position: absolute;
+    background-color: #3b97e3;
+    color: white;
+    z-index: 10;
+    top: 0;
+    left: 0;
+}
+
+.py-toolbar-item {
+    padding: 5px 7px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    width: 26px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.fa-arrow-up::before {
+    content: "";
+}

@@ -1,14 +1,16 @@
 {% load staticfiles %}
 <html>
         <head>
-        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+            <script type="text/javascript" src="{% static 'js/jquery-1_12_4.js' %}"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <!--<link rel="stylesheet" href="{% static 'css/fontawesome.css' %}" >-->
             <link rel="stylesheet" href="{% static 'css/py_portal.css' %}" >
             <link rel="stylesheet" href="{% static 'css/py_tabs.css' %}" >
             <link rel="stylesheet" href="{% static 'css/py_editor.css' %}" >
             <script type="text/javascript" src="{% static 'js/py_tabs.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/py_util.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/extramethods.js' %}"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <script type="text/javascript" src="{% static 'js/py_editor.js' %}"></script>
     </head>
     <body>
         <div class="container">
@@ -24,5 +26,6 @@
                 </div>
             </div>
         </div>
+    {% include "PyWeb/extraelements.html" %}
     </body>
 </html>
