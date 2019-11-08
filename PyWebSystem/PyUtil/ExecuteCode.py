@@ -9,7 +9,24 @@ def exe_code_from_local(context, *args, **kwargs):
         fileopen.close()
         code_obj = compile(filecode, tagname, 'exec')
         exec(code_obj, locals())
-        return locals()[tagname](context, args, kwargs)
+        #print(kwargs)
+        return locals()[tagname](context, *args, **kwargs)
+
+
+def exe_tag_from_local(context, args):
+    #context = kwargs.get("scope", {})
+    tagname = args[1]
+    #print(kwargs)
+    kwargs = {}
+    if tagname is not "":
+        filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/customtags/pw_"+tagname+".py"
+        fileopen = open(filename, "r")
+        filecode = fileopen.read()
+        fileopen.close()
+        code_obj = compile(filecode, tagname, 'exec')
+        exec(code_obj, locals())
+        #print(kwargs)
+        return locals()[tagname](context, *args, **kwargs)
 
 
 def executecode(filename1, filename2):
@@ -35,7 +52,7 @@ def executeaction(context={}, action={}, *args, **kwargs):
     fileopen.close()
     code_obj = compile(filecode, tagname, 'exec')
     exec(code_obj, locals())
-    return locals()[tagname](context, action, args, kwargs)
+    return locals()[tagname](context, action, *args, **kwargs)
     pass
 
 if __name__ == '__main__':

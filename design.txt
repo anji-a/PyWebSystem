@@ -5,7 +5,9 @@
     </div>
 </div>
 ----------------layout design------------------
-    <div class="row" data-element="Layout" data-set="{'gt':{},'pt':{'layouttype':'Single'},'at':{}}">
+    <div class="row" data-element="Layout" data-set="{'gt':,'pt':{'layouttype':'Single'},'at':{}}">
         <div class=column c6 h25"></div>
     </div>
+
+    data-set='{\"gt\":{\"layouttype\":\"Single\", \"visibility\":\"Always\"},\"pt\":{},\"at\":{}}'>
 ----------------Element design--------------------

@@ -1,6 +1,12 @@
-<div class="row_100" data-type="editor" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="enterDrop(event)" ondragleave="leaveDrop(event)" ondragstart="drag(event)"><!-- data-type editor used to fire mouse over/out-->
-    <div class="py-dashed pycontainer_ul" data-eleAdd="true">
-        <!-- Need to delete-->
+<div id="sample">
+    <div class="column c12 h5" >
+        <button style="float: right;" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"exeaction", "actionname":"parsetodict"}]}]}'>Save</button>
+    </div>
+    <div  class="row column c12 h95"  data-type="editor" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="enterDrop(event)" ondragleave="leaveDrop(event)" ondragstart="drag(event)"><!-- data-type editor used to fire mouse over/out-->
+        <div class="py-dashed pycontainer_ul" data-eleAdd="true" data-parse="true">
+            <!-- will add dynamic-->
 
+        </div>
     </div>
 </div>
+

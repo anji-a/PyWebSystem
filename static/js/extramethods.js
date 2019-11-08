@@ -40,31 +40,50 @@ function allowDrop(ev) {
 }
 
 function drag(ev) {
-   //console.log(ev.target,ev.target.dataset.type);
+   console.log(ev.target,ev.target.dataset.type);
    original_event = ev.target;
   ev.dataTransfer.setData("originevent", ev.target.dataset.type);
 }
 function enterDrop(event){
-    if(event.target.hasChildNodes()){
-        if(event.target.innerHTML==$(event.target).closest('[data-element="Layout"]').last().html()){
-        console.log(1);
-            $(event.target).css({"border-bottom":"5px Solid #0de0d4"});
-        }else{
-            console.log(2);
-            $(event.target).css({"border-top":"5px Solid #0de0d4"});
-        }
+      if($(event.target).closest("[data-select='true']").length>0){
+        position = event.target.closest("[data-select='true']").getBoundingClientRect();
+          left = position.left;
+          topy = position.top;
+          width = position.width;
+          //console.log(position);
+          $("[data-type='border']").addClass(" displayflex");
+              $("[data-type='border']").css({"top":topy,"left":left,"width":width});
+        if($(event.target).closest("[data-select='true']").length>0){
+              $("[data-type='border']").addClass(" displayflex");
+              $("[data-type='border']").css({"top":topy,"left":left,"width":width});
+          }
+        //$(event.target).closest("[data-select='true']").css({"border-top":""});
+        //$(event.target).closest("[data-select='true']").css({"border-top":"5px Solid #0de0d4"});
+        //event.target.style.borderTop="5px Solid #0de0d4";
+        //$("[data-type='border']").addClass(" displayflex");
+        //$("[data-type='border']").css({"width":"100%"});
+        //$(event.target).closest("[data-select='true']").toggleClass(" py-comp-select");
+        //event.target.closest("[data-select='true']").dataset['current']='true';
     }else{
-        console.log(3);
+        $(event.target).css({"border-top":"","border-bottom":""});
         $(event.target).css({"border-top":"5px Solid #0de0d4"});
+        //event.target.dataset['current']='true';
     }
-    event.target.dataset['current']='true';
 }
 function leaveDrop(event){
+    /*if($(event.target).closest("[data-select='true']").length>0){
+        $(event.target).closest("[data-select='true']").css({"border-top":"","border-bottom":""});
+    }else{
+        $(event.target).css({"border-top":"","border-bottom":""});
+        //event.target.dataset['current']='true';
+    }*/
     $(event.target).css({"border-top":"","border-bottom":""});
+    //$("[data-type='border']").removeClass(" displayflex");
 }
 function drop(ev) {
   ev.preventDefault();
   $(ev.target).css({"border-top":"","border-bottom":""});
+  $("[data-type='border']").removeClass(" displayflex");
   var originevent = ev.dataTransfer.getData("originevent");
   //console.log(originevent);
   if(originevent=="Layout"){
@@ -108,7 +127,7 @@ $(document).ready(function(){
           right = position.right;
           topy = position.top;
           targetwidth = document.body.querySelector("[data-type='actions']").clientWidth;
-          //console.log(document.body.querySelector("[data-type='actions']"));
+          //console.log(position,event);
           $(".py-comp-selected").removeClass(" py-comp-selected");
           $(event.target).closest("[data-select='true']").addClass(" py-comp-selected");
           $("[data-type='actions']").removeClass(" displayNone");
@@ -122,6 +141,7 @@ $(document).ready(function(){
     },
     blur: function(event){
         console.log($(event.target));
+
        $(event.target).closest("[data-select='true']").removeClass(" py-comp-selected");
        $("[data-type='actions']").find(".fa-cog").off("click");
     }
@@ -130,6 +150,10 @@ $(document).ready(function(){
 
 function opensettings(event){
     console.log($(event.data.evt.target));
+    $("[data-type='actions']").addClass(" displayNone");
+    html = generatesettings($(event.data.evt.target));
+    console.log(html);
+    openmodelwindow(event,html);
 }
 
 function generateid(length) {
@@ -140,4 +164,20 @@ function generateid(length) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
    }
    return result;
+}
+
+function openmodelwindow(event,displayhtml){
+    document.getElementById("PyModalAAA").style.display = "block";
+    $('#PyModalAAA').find('[data-body="true"]').html(displayhtml);
+}
+function closemodel(event){
+    document.getElementById("PyModalAAA").style.display = "none";
+}
+
+function isEmpty(obj) {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
 }

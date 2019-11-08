@@ -76,7 +76,7 @@ function processeventaction(event){
     dataset.eventtype = event.type;
     //dataset.roothtml = $(event.target).closest("[id='pw_new_purpose']");
     // need to update pw_new_purpose with dynamic element value
-    var elem = document.getElementById("pw_new_purpose");
+    var elem = document.getElementById("sample");
     if(elem != null && elem !== undefined){
         console.log(elem.outerHTML);
         dataset.roothtml = elem.outerHTML;
@@ -95,7 +95,7 @@ function processeventaction(event){
                 //alert(3);
                 console.log(response);
                 html = response.html;
-                //console.log(html);
+                console.log(html);
                 eval(html);
 
             },

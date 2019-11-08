@@ -1,14 +1,14 @@
 from bs4 import BeautifulSoup
 import json, sys
-from PyWebSystem.PyUtil.FindHTMLChildNodes import find_child_codes
+from PyWebSystem.PyUtil.FindHTMLChildNodes import find_child_nodes
 
 def process_parse():
     code = {"details": {"name": "Sample1"}, "methods": []}
     methods = []
     with open("C:/Users/AF86407/Documents/GitHub/PyWebSystem/PyWebSystem/PyHtml/Sample.html") as fp:
         html = BeautifulSoup(fp, "html.parser")
-    #print(find_child_codes(html.contents[0], attrs={"data-find": "row"}))
-    for key, element in enumerate(find_child_codes(html.contents[0], attrs={"data-find": "row"})):
+    #print(find_child_nodes(html.contents[0], attrs={"data-find": "row"}))
+    for key, element in enumerate(find_child_nodes(html.contents[0], attrs={"data-find": "row"})):
         #print(element)
         method = json.loads(element['data-controlset'])
         method["method"] = {}
@@ -18,8 +18,8 @@ def process_parse():
         #print(element.find(attrs={"data-find": "row"}))
         submethod = []
 
-        for key, element in enumerate(find_child_codes(element, attrs={"class": "col-12 pl-5"})):
-            for subkey, subelement in enumerate(find_child_codes(element, attrs={"data-find": "row"})):
+        for key, element in enumerate(find_child_nodes(element, attrs={"class": "col-12 pl-5"})):
+            for subkey, subelement in enumerate(find_child_nodes(element, attrs={"data-find": "row"})):
                 submethod.append(sub_methods(subelement))
 
         method["methods"] = submethod
@@ -41,8 +41,8 @@ def sub_methods(element):
     #print(element.find_all(class_="row p-1"))
     #submethod.append(method)
     #submethod = []
-    for key, element in enumerate(find_child_codes(element, attrs={"class": "col-12 pl-5"})):
-        for subkey, subelement in enumerate(find_child_codes(element, attrs={"data-find": "row"})):
+    for key, element in enumerate(find_child_nodes(element, attrs={"class": "col-12 pl-5"})):
+        for subkey, subelement in enumerate(find_child_nodes(element, attrs={"data-find": "row"})):
             submethod.append(sub_methods(subelement))
     method["methods"] = submethod
 

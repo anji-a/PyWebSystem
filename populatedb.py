@@ -3,7 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'PyWebSystem.settings')
 #django import and setup
 
 #from DPortal.Utility import *
-
+from django.template import Context, Template
 import django
 django.setup()
 
@@ -33,8 +33,15 @@ def get_PyElement():
     print(list(distinct_objs))
     #writeFile(all_objs[4].get_data())
 
+def renderhtml():
+    t = Template("{% autoescape off %}{% load TagUtility %}{%includeBlockTag Upper {'a':'b'} %}{%includeTag Upper 'abc' %}<a>end</a>{%endincludeBlockTag%}{% endautoescape %}")
+    c = Context({"a": "a"})
+    # print(c)
+    html = t.render(c)
+    print(html)
+
 if __name__ == '__main__':
     print("Popula Script start")
-    save_PyElement()
+    renderhtml()
     #get_PyElement()
     print("Popula Script end")

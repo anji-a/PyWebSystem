@@ -1,0 +1,11 @@
+{%load TagUtility%}
+{%comment%}
+    <!--{{config.controlset}} {{config|index:3}}{%includeTag convertStrToDict "config" args as columns%}{%includeTag input "+context.get('col1', "{}")+"%}{{col.controlset}}-->
+{%endcomment%}
+{% with columns=config.columns layconfig=config.controlset %}
+        <div class='row'>
+        {%for col in columns %}
+            {%includeTag input col%}
+        {%endfor%}
+    </div>
+{% endwith %}
