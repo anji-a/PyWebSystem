@@ -1,3 +1,20 @@
 .flex-content-inline{width:100.0%;min-width:0;max-width:none;display:flex;flex-flow:row wrap;}
 .flex-content-inline>.content-item {display:flex;margin: 0px 0.5em 0.5em 0px;padding:0px;min-height:30.0px;width:auto;min-width:0.0px;flex-direction:column;justify-content:flex-start;align-items:flex-start;}
 .flex-content-inline>.content-item>.field-caption {text-align:left;width:100%;padding-bottom:0.0px;flex:none;padding-right:0px;display:block;}
+.fade {opacity: 0;.transition(opacity .15s linear);&.in {opacity: 1;}}
+.ST_Tabgroup {padding-left: 0;margin-bottom: 0;  list-style: none;  &:extend(.clearfix all);  
+> li {position: relative;display: block;
+> a {position: relative;display: block;padding: @nav-link-padding;
+&:hover,&:focus{text-decoration: none;background-color: @nav-link-hover-bg;}}
+&.disabled > a {color: @nav-disabled-link-color;
+&:hover,&:focus {color: @nav-disabled-link-hover-color;text-decoration: none;cursor: @cursor-disabled;background-color: transparent;}}}}
+.ST_tabsheader {border-bottom: 1px solid @nav-tabs-border-color;
+> li {float: left;margin-bottom: -1px;
+> a {margin-right: 2px;line-height: @line-height-base;border: 1px solid transparent;border-radius: @border-radius-base @border-radius-base 0 0;
+&:hover {border-color: @nav-tabs-link-hover-border-color @nav-tabs-link-hover-border-color @nav-tabs-border-color;}}
+&.active > a {
+&,&:hover,&:focus {color: @nav-tabs-active-link-hover-color;cursor: default;background-color: @nav-tabs-active-link-hover-bg;border: 1px solid @nav-tabs-active-link-hover-border-color;border-bottom-color: transparent;}}}
+&.nav-justified {.nav-justified();.nav-tabs-justified();}}
+.ST_tab-content {
+> .tab-pane {display: none;}
+> .active {display: block;}}

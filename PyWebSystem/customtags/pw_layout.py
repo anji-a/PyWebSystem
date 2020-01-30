@@ -12,14 +12,15 @@ def layout(context, *args, **kwargs):
     :param kwargs:
     :return:
     """
-    logmessage(__name__, "warning", args[2])
+    logmessage("layout", "warning", args)
+    primaryNode = context["Primary"]
     #stra = '{"controlset": {"gt": {"layouttype": "Single", "visibility": "Always"}, "pt": {}, "at": {}}, "controltype": "Layout", "columns": [{"controlset": {}, "controltype": "Input"}]}'
     #logmessage(__name__, "warning", stra)
-    strb = args[2]
-    strb =strb[:strb.__len__()-1]
-    strb = strb[1:]
+    #strb = args[2]
+    #strb =strb[:strb.__len__()-1]
+    #strb = strb[1:]
     #print(strb, stra)
-    context['config'] = json.loads(strb)
+    #context['config'] = json.loads(strb)
     tagname = args[1]
     filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/customtags/htmltags/" + tagname + ".html"
     fileopen = open(filename, "r")
@@ -30,4 +31,5 @@ def layout(context, *args, **kwargs):
     #c = Context(context)
     #print(c)
     html = t.render(context)
+    context["Primary"] = primaryNode
     return html

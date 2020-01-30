@@ -6,10 +6,12 @@ from django.http import HttpResponse
 from json import dumps
 
 from bs4 import BeautifulSoup
+from PyWebSystem.PyUtil.pw_logger import logmessage
 
 
 @csrf_exempt
 def pw_ui_include(request):
+    logmessage(__name__, "warning")
     session = get_session(request.session.session_key)
     # /////////logic starts here /////////////
     params = {"Etype": "Params"}

@@ -1,11 +1,15 @@
 {%load TagUtility%}
 {%comment%}
     <!--{{config.controlset}} {{config|index:3}}{%includeTag convertStrToDict "config" args as columns%}{%includeTag input "+context.get('col1', "{}")+"%}{{col.controlset}}-->
+    {%includeTag assignCss controlset as layconfig%}
+<!--<div class="{{layconfig.layout}}">-->
 {%endcomment%}
-{% with columns=config.columns layconfig=config.controlset %}
-        <div class='row'>
-        {%for col in columns %}
-            {%includeTag input col%}
-        {%endfor%}
-    </div>
+{% with columns=Primary.columns %}
+        <div class="w3-container w3-border">
+            {%for col in columns %}
+                {% with Primary=col %}
+                    {%includeTag input%}
+                {%endwith%}
+            {%endfor%}
+        </div>
 {% endwith %}

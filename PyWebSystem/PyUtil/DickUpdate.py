@@ -1,5 +1,6 @@
 import sys
 from functools import reduce
+from PyWebSystem.PyUtil.pw_logger import logmessage
 
 
 def dick_update(key, originaldata, updatedata):
@@ -16,8 +17,10 @@ def dick_update(key, originaldata, updatedata):
 
 
 def process_request_dick(request={}, session={}):
+    logmessage("process_request_dick", "warning")
     #print(session, "\n....................")
     parserequest = session
+    parserequest["Config"] = parserequest.get("Config", {})
     #print(request, "\n....................")
     for key, value in request.items():
         if key.__contains__("$"):
@@ -53,8 +56,8 @@ def process_request_dick(request={}, session={}):
                                     parserequest["pwexceptions"] = []
                                     parserequest["pwexceptions"].append(key + " Has index issue")
         else:
-            parserequest["EventData"] = parserequest.get("EventData", {})
-            parserequest["EventData"][key] = value
+            parserequest["Config"]["EventData"] = parserequest["Config"].get("EventData", {})
+            parserequest["Config"]["EventData"][key] = value
 
     #print(parserequest, "\n....................")
 
@@ -82,6 +85,7 @@ def get_furthest(s, path):
 
 
 def get_val(s, path):
+    #print(path)
     val, successful = get_furthest(s, path)
     if successful:
         return val
@@ -153,12 +157,16 @@ def key_list(key=""):
             keylist.append(k[1:])
     return keylist
 
+
+
+
 if __name__ == '__main__':
     print("Popula Script start")#pr[standard][results][1][name]
     code_dick = {"$dstandard$pname": "sample", "$dstandard$pdir": "code", "name": "hello","$dstandard$lresults&1$pname": "ohh"}
     session = {"standard": {"results": [{"a": "a"}, {"b": "b"}]}, "name": "hi"}
     #print(sattr(session, ["standard", "results", "1", "b"], {"a": "b"}))
-    #print(get_val(session, ["standard", "results", 1, "c"]))
+    #print(get_val(session, ["standard", "results", 1, "a"]))
+    print(get_val(session, []))
     #for k, v, p in dict_loop(session):
         #print(k, v, p)
     # get_PyElement()

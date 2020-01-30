@@ -2,6 +2,7 @@ from django.core.cache import cache
 import sys
 import json
 from PyWebSystem.PyUtil.DickUpdate import process_request_dick
+from PyWebSystem.PyUtil.pw_logger import logmessage
 
 
 def get_session(sessionid=None):
@@ -33,17 +34,22 @@ def update_session(session=None):
 
 
 def update_request(request=None, session={}, *args, **kwargs):
+    logmessage("update_request", "warning")
     kwargs.get("params", {})["sessionid"] = request.session.session_key
     my_dic = request.POST.dict()
     #print(my_dic)
+    logmessage("update_request", "warning", my_dic)
     controlset = json.loads(my_dic.get("data-controlset", '{}'))
     my_dic["data-controlset"] = controlset
     #print(my_dic)
     #session = get_session(request.session.session_key)
-    root_obj = session.get(my_dic.get("data-controlset", {}).get("root_data", session.get("Requester", "").get("sessionid", "")), {})
-    process_request_dick(my_dic, root_obj)
-    context = root_obj
+    # get node data
+    node = session.get(my_dic.get("data-controlset", {}).get("threadName", ""))
+    #root_obj = session.get(my_dic.get("data-controlset", {}).get("root_data", session.get("Requester", "").get("sessionid", "")), {})
+    process_request_dick(my_dic, node)
+    context = node
     #print(session)
+    logmessage("update_request", "warning", context)
     return context
 
 

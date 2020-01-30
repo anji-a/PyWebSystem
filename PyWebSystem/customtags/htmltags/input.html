@@ -1,7 +1,9 @@
 {%load TagUtility%}
+{%comment%}
 {%includeTag defineConfiguration col as control%}
+{%endcomment%}
 
-<div class="col c6">
+<div>
     <label for="name">Name (4 to 8 characters):</label>
-    <input type="text" id="name" name="name" value="{{control}}">
+    <input class="w3-input w3-border" type="text" id="name" name="name" value="{{col}}">
 </div>

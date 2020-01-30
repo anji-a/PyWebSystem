@@ -1,0 +1,45 @@
+{%load TagUtility%}
+
+<div data-target="py-home-tab" class="w3-container">
+{%includeTag generatetab %}
+</div>
+
+
+{%comment%}
+<div class="tab" data-target="py-home-tab" class="w3-bar w3-black">
+    {%for tab in Primary %}
+    {%includeTag assignid as genid%}
+        <button class="w3-bar-item w3-button" data-target="{{genid}}" onclick="w3tabclick(event)">{{genid}}</button>
+        <div id="{{genid}}" class="w3-container w3-border" style="display:none">
+            <h2>{{genid}}</h2>
+            <p>London is the capital city of England</p>
+        </div>
+    {%endfor%}
+</div>
+{"gt": {"layouttype": "Single", "visibility": "Always"}, "pt": {}, "at": {}}
+    <div class="ST_Tabgroup">
+        <ul class="ST_tabsheader"><li class=""  onclick="opentab(event)">Home</li></ul>
+        <div class="ST_tab-content">
+            <div id="{{genid}}" class="tab-pane fade in active">
+                Hello Home
+            </div>
+        </div>
+    </div>
+    <div class="tab" data-target="py-home-tab">
+        <div class="tablinks" data-target="{{genid}}" onclick="opentab(event)">Home</div>
+    </div>
+    <div class="tabcontent" id="{{genid}}">
+          <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+          <h3>London</h3>
+          <p>London is the capital city of England.</p>
+    </div>
+
+<div class="tabgroup">
+    <div class="tabhader">
+        <div class="tablinks" data-target="{{genid}}" onclick="opentab(event)">Home</div>
+    </div>
+    <div class="tabcontent">
+
+    </div>
+</div>
+{%endcomment%}

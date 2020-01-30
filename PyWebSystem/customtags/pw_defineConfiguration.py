@@ -10,5 +10,18 @@ def defineConfiguration(context, *args, **kwargs):
             var = var.get(value, {})
         else:
             pass
-    logmessage(__name__, "warning", var)
-    return [{"a": "a"}]
+    logmessage("defineConfiguration", "warning", var)
+    return var
+
+
+def defineConfigurationwithkey(context, key):
+    var = {}
+    for k, value in enumerate(key.split(".")):
+        if k == 0:
+            var = context.get(value, {})
+        elif var.keys():
+            var = var.get(value, {})
+        else:
+            pass
+    logmessage("defineConfigurationwithkey", "warning", var)
+    return var

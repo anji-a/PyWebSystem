@@ -7,6 +7,8 @@ from datetime import datetime
 from PyWebSystem.PyUtil.GetSessionObject import get_session, update_session
 from django.core.cache import cache
 from django.core.cache import caches
+from PyWebSystem.PyUtil.pw_extra_methods import createNode
+from PyWebSystem.PyUtil.pw_logger import logmessage
 
 
 def index(request):
@@ -15,6 +17,7 @@ def index(request):
 
 @csrf_exempt
 def login_app(request):
+    logmessage("login_app", "warning")
     if request.method == 'POST' or request.method == 'GET':
         try:
             username = request.POST['username']
@@ -24,24 +27,22 @@ def login_app(request):
             if user is not None:
                 login(request, user)
                 OperatorID = {"userid": username, "loginTime": str(datetime.now()), "portal_type": "Developer"}
-                Portal = OperatorID.get("portal_type", "Standard")
+                StandardNode = "Standard"
                 Requester = {"sessionid": request.session.session_key, "userid": username, "loginTime": str(datetime.now())}
                 session = get_session(request.session.session_key)
                 session["OperatorID"] = OperatorID
-                session[Portal] = {}
-                session[Portal]["standard"] = {}
-                session[Portal]["OperatorID"] = OperatorID
-                session[Portal]["Requester"] = Requester
                 session["Requester"] = Requester
+                createNode(session, StandardNode)
                 update_session(session)
-                # print(session, "\n....................")
+                #print(session, "\n....................")
+                logmessage("login_app", "warning", session)
                 # return render(request, 'PyWeb/workspace.html', context=session) used to check for old code
                 return render(request, 'PyWeb/py_editor.html', context=session)
             else:
                 return render(request, 'PyWeb/login.html',
                               context={'login_message': "Login not success Please try to re login"})
         except Exception:
-            print(sys.exc_info())
+            logmessage("login_app", "error", exception=sys.exc_info())
     else:
         print("its get method")
 

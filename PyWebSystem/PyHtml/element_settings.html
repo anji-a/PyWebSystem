@@ -1,0 +1,28 @@
+{%load TagUtility%}
+
+{%for tab in config_elemenet %}
+{%includeTag assignid as genid%}
+    <div class="tab" data-target="py-home-tab">
+        <div class="tablinks" data-target="{{genid}}" onclick="opentab(event)">Home</div>
+    </div>
+    <div class="tabcontent" id="{{genid}}">
+          <h3>London</h3>
+          <p>London is the capital city of England.</p>
+    </div>
+{%endfor%}
+
+
+
+{%comment%}
+-- This is tab repeat example
+{"gt": {"layouttype": "Single", "visibility": "Always"}, "pt": {}, "at": {}}
+
+<div class="tab" data-target="py-home-tab">
+    <div class="tablinks" data-target="abc" onclick="opentab(event)">Home</div>
+</div>
+<div class="tabcontent" id="abc">
+      <span onclick="this.parentElement.style.display='none'" class="topright">&times</span>
+      <h3>London</h3>
+      <p>London is the capital city of England.</p>
+</div>
+{%endcomment%}

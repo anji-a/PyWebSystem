@@ -1,3 +1,5 @@
+from PyWebSystem.PyUtil.pw_logger import logmessage
+
 def exe_code_from_local(context, *args, **kwargs):
     context = kwargs.get("scope", {})
     tagname = kwargs.get("pw_tag", "")
@@ -43,7 +45,9 @@ def executecode(filename1, filename2):
     locals()["Sample"](dick=dick1).process()
     #locals()["sam"]()
 
+
 def executeaction(context={}, action={}, *args, **kwargs):
+    logmessage(__name__, "warning")
     #print("hello", action)
     tagname = action.get("actionname", "")
     filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/PyUtil/" + tagname + ".py"
@@ -54,6 +58,7 @@ def executeaction(context={}, action={}, *args, **kwargs):
     exec(code_obj, locals())
     return locals()[tagname](context, action, *args, **kwargs)
     pass
+
 
 if __name__ == '__main__':
     print("Popula Script start")

@@ -151,9 +151,12 @@ $(document).ready(function(){
 function opensettings(event){
     console.log($(event.data.evt.target));
     $("[data-type='actions']").addClass(" displayNone");
-    html = generatesettings($(event.data.evt.target));
-    console.log(html);
-    openmodelwindow(event,html);
+    conf = $(event.data.evt.target).closest("[data-select='true']").attr("data-set");
+    actionset = {"actionset":[{"event":"click", "eventdata":[{"action":"exeaction", "actionname":"resetsettings_for_element","config":conf},{"action":"modelwindow", "form":"element_settings", "target":"PyModalAAA"}]}]};
+    processeventaction_another_function(actionset,$(event.data.evt.target));
+    //html = generatesettings($(event.data.evt.target));
+    //console.log(html);
+    //openmodelwindow(event,html);
 }
 
 function generateid(length) {
@@ -166,9 +169,9 @@ function generateid(length) {
    return result;
 }
 
-function openmodelwindow(event,displayhtml){
-    document.getElementById("PyModalAAA").style.display = "block";
-    $('#PyModalAAA').find('[data-body="true"]').html(displayhtml);
+function openmodelwindow(event,displayhtml,target){
+    document.getElementById(target).style.display = "block";
+    $('#'+target).find('[data-body="true"]').html(displayhtml);
 }
 function closemodel(event){
     document.getElementById("PyModalAAA").style.display = "none";

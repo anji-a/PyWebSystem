@@ -29,7 +29,7 @@ def includeBlockTag(parser, token):
     :param token:
     :return:
     """
-    logmessage(__name__, "warning", token.split_contents())
+    logmessage(__name__+",includeBlockTag", "warning", token.split_contents())
     #tag, tag_name, config = token.split_contents()
     #tag = "includeTag "+tag_name
     nodelist = parser.parse(('endincludeBlockTag',))
@@ -45,7 +45,7 @@ def includeTag(parser, token):
     :return:
     """
     #print(__name__)
-    logmessage(__name__, "warning", token.split_contents())
+    logmessage(__name__+",includeTag", "warning", token.split_contents())
     #tag, tag_name, config = token.split_contents()
     #tag = "includeTag "+tag_name
     #nodelist = parser.parse(('endincludeTag',))

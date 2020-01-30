@@ -1,14 +1,18 @@
 from PyWebSystem.PyUtil.RenderHtmlToString import render_html
+from PyWebSystem.PyUtil.pw_logger import logmessage
 
 
 def model_window(context={}, action={}, *args, **kwargs):
+    logmessage(__name__, "warning")
     context["element"] = action.get("form", "")
     context["data_element"] = "static"
     html = render_html(context)
     if context.get("element_html", "") == "":
-        context["element_html"] = "$('#"+action.get("target", "")+"Body').html(\"" + html + "\");$('#"+action.get('target', '')+"').modal({'show':true,backdrop:'static'});"
+        #context["element_html"] = "$('#"+action.get("target", "")+"Body').html(\"" + html + "\");$('#"+action.get('target', '')+"').modal({'show':true,backdrop:'static'});"
+        context["element_html"] = "openmodelwindow(event,\""+html+"\" ,\""+action.get("target", "")+"\")"
     else:
-        context["element_html"] += "$('#"+action.get("target", "")+"Body').html(\"" + html + "\");$('#"+action.get('target', '')+"').modal({'show':true,backdrop:'static'});"
+        #context["element_html"] += "$('#"+action.get("target", "")+"Body').html(\"" + html + "\");$('#"+action.get('target', '')+"').modal({'show':true,backdrop:'static'});"
+        context["element_html"] += "openmodelwindow(event,\"" + html + "\" ,\"" + action.get("target", "") + "\")"
 
 
 def model_close(context={}, action={}, *args, **kwargs):

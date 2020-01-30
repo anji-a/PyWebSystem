@@ -100,3 +100,9 @@ function opencollapse(event){
     });
 
 }
+
+
+function w3tabclick(event){
+    tabgroup = $(event.target).closest('[data-target="py-home-tab"]');
+    tabtarget = $(event.target).attr("data-target");
+}

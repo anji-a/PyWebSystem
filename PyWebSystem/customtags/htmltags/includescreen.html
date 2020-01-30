@@ -1,0 +1,26 @@
+{%load TagUtility%}
+{%comment%}
+used to include screen based on control type
+{% if config.config.PrimaryDict == "" %}
+    {%includeTag defineConfiguration  root_node as Primary%}
+{%else%}
+    {%includeTag defineConfiguration  config.config.PrimaryNode as Primary%}
+{%endif%}
+{%endcomment%}
+
+{%includeTag definePrimaryNode Config.config.PrimaryNode as Primary%}
+{{Primary}}
+
+{% autoescape off %}
+    {% if Config.config.controltype == "Layout" %}
+        {% with Config=Config.config Primary=Primary worknodes=worknodes %}
+            {%includeTag layout %}
+        {% endwith %}
+    {% endif %}
+    {% if Config.config.controltype == "TabGroup" %}
+        {% with Config=Config.config Primary=Primary worknodes=worknodes%}
+            {%includeTag tab %}
+        {% endwith %}
+    {% endif %}
+{% endautoescape %}
+{{Primary}}

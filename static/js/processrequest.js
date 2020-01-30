@@ -70,9 +70,10 @@ function processaction(actionset,event,response){
 function processeventaction(event){
     console.log(event);
     var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
-    var targetdata = $(event.target).closest("[data-find='data_root']").attr("data-element");// used to find portal type
-
-    dataset.root_data = targetdata;
+    var targetnode = $(event.target).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
+    var targetthread = $(event.target).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
+    dataset.threadName = targetthread
+    dataset.root_node = targetnode;
     dataset.eventtype = event.type;
     //dataset.roothtml = $(event.target).closest("[id='pw_new_purpose']");
     // need to update pw_new_purpose with dynamic element value
@@ -118,4 +119,46 @@ function processeventaction(event){
         $('#PWModalBody').load('UI_Include', data);
 
     }*/
+}
+
+
+function processeventaction_another_function(dataset,event){
+    /*var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
+    var targetdata = $(event.target).closest("[data-find='data_root']").attr("data-element");// used to find portal type
+
+    dataset.root_data = targetdata;
+    dataset.eventtype = event.type;
+    console.log(dataset);*/
+    var targetnode = $(event).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
+    var targetthread = $(event).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
+    dataset.root_node = targetnode;
+    dataset.threadName = targetthread
+    data = {}
+    //console.log($(event))
+    data['data-controlset']=JSON.stringify(dataset);
+
+     $.ajax({ data: data,
+        type: "POST",
+        url: "/UI_Include",
+        dataType: 'json',
+
+            success: function(response) {
+                //alert(3);
+                console.log(response);
+                html = response.html;
+                console.log(html);
+                eval(html);
+
+            },
+            error: function (request, status, error) {
+                 console.log(request.responseText);
+            },
+            beforeSend: function() {
+
+            },
+            complete: function() {
+
+            }
+    });
+
 }

@@ -1,0 +1,22 @@
+{%load TagUtility%}
+{%comment%}
+Used to generate HTML based on config dict
+{{Primary}}
+{%endcomment%}
+{%includeTag definePrimaryNode Config as Primary%}
+
+{% autoescape off %}
+    {%for element in Primary %}
+        {% if element.controltype == "Layout" %}
+        {% with Primary=element %}
+            {%includeTag layout %}
+        {% endwith %}
+        {% endif %}
+        {% if element.controltype == "TabGroup" %}
+            {% with Primary=element %}
+                {%includeTag tab %}
+            {% endwith %}
+        {% endif %}
+    {%endfor%}
+{% endautoescape %}
+{{Primary}}

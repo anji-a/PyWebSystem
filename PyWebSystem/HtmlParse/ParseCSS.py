@@ -1,5 +1,5 @@
 from django.conf import settings
-from PyWebSystem.Samples.LayoutFormatSamples import flex_inline
+from PyWebSystem.Samples.LayoutFormatSamples import flex_inline, StandardTab
 import json
 
 
@@ -10,6 +10,7 @@ def parseCSS():
 
     css = ""
     cs = flex_inline()
+    cs +="\n"+ StandardTab()
     css += cs + "\n"
     """for key, value in a.items():
         for k, v in value.items():

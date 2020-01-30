@@ -69,7 +69,7 @@ function generatesettings(parentelement){
     dataset = $(parentelement).closest("[data-select='true']").attr("data-set");
     console.log(dataset);
     jsonset = JSON.parse(dataset);
-    datatabroot = generateid(5);
+    /*datatabroot = generateid(5);
     var tabsroot = document.createElement("div");
     tabsroot.dataset.tabroot=datatabroot
     var tabtabs = document.createElement("div");
@@ -108,6 +108,6 @@ function generatesettings(parentelement){
         }
     }
     tabsroot.appendChild(tabtabs);
-    tabsroot.appendChild(tabcontent);
+    tabsroot.appendChild(tabcontent);*/
     return tabsroot.outerHTML;
 }

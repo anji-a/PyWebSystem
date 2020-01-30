@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
 from bs4 import Comment
 import json
+from PyWebSystem.PyUtil.pw_logger import logmessage
 
 
 def parsehtmltodict(html=""):
+    logmessage("parsehtmltodict", "warning", html)
     sourceDict = {}
     sourceDict["name"] = "Sample"
     sourceDict["dir"] = "Dir"
