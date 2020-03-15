@@ -16,6 +16,75 @@ def dick_update(key, originaldata, updatedata):
         return originaldata
 
 
+def update_context(request={}, session={}):
+    logmessage("update_context", "warning", request)
+    parserequest = session
+    parserequest["Config"] = parserequest.get("Config", {})
+    for key, value in request.items():
+        if key.__contains__("."):
+            keylist = getkeylist(key)
+            tempelement = parserequest
+            for key, keyvalue in enumerate(keylist):
+                lenlist = len(keylist)
+                try:
+                    if lenlist-1 == key:
+                            tempelement[keyvalue] = value
+                    else:
+                        if isinstance(tempelement, list) and index_exists(tempelement, keyvalue):
+                            tempelement = tempelement[keyvalue]
+                        elif isinstance(tempelement, dict) and keyvalue in tempelement.keys():
+                            tempelement = tempelement.get(keyvalue, value)
+                        elif key != lenlist and isinstance(keylist[key], int):
+                            if isinstance(tempelement, list):
+                                if index_exists(tempelement, keyvalue):
+                                    tempelement = tempelement[keyvalue]
+                                else:
+                                    if "pwexceptions" in parserequest.keys():
+                                        parserequest["pwexceptions"].append(str(keyvalue) + " Has index issue")
+                                    else:
+                                        parserequest["pwexceptions"] = []
+                                        parserequest["pwexceptions"].append(str(keyvalue) + " Has index issue")
+                            else:
+                                if "pwexceptions" in parserequest.keys():
+                                    parserequest["pwexceptions"].append(str(keyvalue) + " Has index issue")
+                                else:
+                                    parserequest["pwexceptions"] = []
+                                    parserequest["pwexceptions"].append(str(keyvalue) + " Has index issue")
+                        else:
+                            tempelement[keyvalue] = {}
+                            tempelement = tempelement[keyvalue]
+                except:
+                    if "pwexceptions" in parserequest.keys():
+                        parserequest["pwexceptions"].append(str(key) + " Has index issue")
+                    else:
+                        parserequest["pwexceptions"] = []
+                        parserequest["pwexceptions"].append(str(key) + " Has index issue")
+        else:
+            parserequest["Config"]["EventData"] = parserequest["Config"].get("EventData", {})
+            parserequest["Config"]["EventData"][key] = value
+    logmessage("update_context", "warning", session)
+
+
+
+def getkeylist(originalkey):
+    keylist = originalkey.split(".")
+    logmessage("getkeylist", "warning", keylist)
+    keylistfinal = []
+    for key, value in enumerate(keylist):
+       if value[value.__len__() - 1] == "]":
+            value = value[:-1]
+            value.replace("]", '')
+            valuelist = value.split('[')
+            for key, value in enumerate(valuelist):
+                if key == 0:
+                    keylistfinal.append(value)
+                else:
+                    keylistfinal.append(int(value))
+       else:
+           keylistfinal.append(value)
+    return keylistfinal
+
+
 def process_request_dick(request={}, session={}):
     logmessage("process_request_dick", "warning")
     #print(session, "\n....................")
@@ -84,6 +153,18 @@ def get_furthest(s, path):
     return reduce(step_key, path, (s, True))
 
 
+def get_dictvalue(s, path):
+    if path == "" or path == -1:
+        return ""
+    keylist = getkeylist(path)
+    logmessage("get_dictvalue", "warning", keylist)
+    val, successful = get_furthest(s, keylist)
+    if successful:
+        return val
+    else:
+        return ""
+
+
 def get_val(s, path):
     #print(path)
     val, successful = get_furthest(s, path)
@@ -138,6 +219,23 @@ def dict_path(my_dict, path=None):
             yield newpath, v, k
 
 
+def pw_loop(element):
+    i = 0
+    if isinstance(element, dict):
+        for key, value in element.items():
+            if isinstance(value, dict):
+                i += 1
+                # idex, key, path, value
+                yield i, key, "."+key, value
+    elif isinstance(element, list):
+        for key, value in enumerate(element):
+            i += 1
+            if isinstance(value, dict):
+                yield i, key, "["+str(key)+"]", value
+    else:
+        yield -1, -1, -1, -1
+
+
 def dict_loop(dict={}, path=""):
     for key, value in dict.items():
         yield key, value, path+"$d"+key
@@ -158,17 +256,23 @@ def key_list(key=""):
     return keylist
 
 
+def index_exists(ls, i):
+    return (0 <= i < len(ls)) or (-len(ls) <= i < 0)
 
 
 if __name__ == '__main__':
     print("Popula Script start")#pr[standard][results][1][name]
-    code_dick = {"$dstandard$pname": "sample", "$dstandard$pdir": "code", "name": "hello","$dstandard$lresults&1$pname": "ohh"}
+    #code_dick = {"$dstandard$pname": "sample", "$dstandard$pdir": "code", "name": "hello","$dstandard$lresults&1$pname": "ohh"}
     session = {"standard": {"results": [{"a": "a"}, {"b": "b"}]}, "name": "hi"}
+    code_dick = {"standard.name": "sample", "standard.dir": "code", "name": "hello",
+                 "standard.results[1].name": "ohh"}
+    update_context(code_dick, session)
     #print(sattr(session, ["standard", "results", "1", "b"], {"a": "b"}))
     #print(get_val(session, ["standard", "results", 1, "a"]))
-    print(get_val(session, []))
+    #print(get_val(session, []))
+    print(session)
     #for k, v, p in dict_loop(session):
         #print(k, v, p)
     # get_PyElement()
-    print(key_list("$dstandard$pname"))
+    #print(key_list("$dstandard$pname"))
     print("Popula Script end")

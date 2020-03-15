@@ -103,6 +103,25 @@ function opencollapse(event){
 
 
 function w3tabclick(event){
+    tabtargetid = $(event.target).attr('data-tabid');
     tabgroup = $(event.target).closest('[data-target="py-home-tab"]');
-    tabtarget = $(event.target).attr("data-target");
+    tabtarget = tabgroup.find('[data-target="tabcontent"]');
+    tablinks = tabgroup.find('[data-target="tablinks"]');
+    tabid = $(event.target).attr('data-target');
+    $(tablinks.find('[data-tabid="'+tabtargetid+'"]')).each(function(){
+        i = $( this );
+        console.log(i);
+        i.removeClass(" active");
+        if (i.attr('data-target')==tabid){
+            i.addClass(" active");
+        }
+    });
+    $(tabtarget.find('[data-tabid="'+tabtargetid+'"]')).each(function(){
+        i = $( this );
+        console.log(i);
+        i.removeClass(" display");
+        if (i.attr('data-target')==tabid){
+            i.addClass(" display");
+        }
+    });
 }

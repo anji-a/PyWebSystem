@@ -1,0 +1,6 @@
+{%load TagUtility%}
+{%includeTag defineevents as events%}
+{%includeTag assignCss controlset as layconfig%}
+<div class="w3-panel {{layconfig.layclass}}" >
+    <i class="{{layconfig.iconcss}}" style="cursor:pointer;" {{events}} data-controlset='{{layconfig.controlsetstr}}'></i>
+</div>

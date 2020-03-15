@@ -1,0 +1,12 @@
+{%load TagUtility%}
+<div class="w3-bar">
+    {% with columns=ElementPrimary.columns %}
+        {%for col in columns %}
+            {% if col.controltype == "button" %}
+                {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                    {%includeTag button%}
+                {%endwith%}
+            {%endif%}
+        {%endfor%}
+    {%endwith%}
+</div>

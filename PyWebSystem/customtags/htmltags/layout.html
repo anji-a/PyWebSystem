@@ -4,12 +4,80 @@
     {%includeTag assignCss controlset as layconfig%}
 <!--<div class="{{layconfig.layout}}">-->
 {%endcomment%}
-{% with columns=Primary.columns %}
-        <div class="w3-container w3-border">
+{%includeTag assignCss controlset as layconfig%}
+{%if layconfig.TitileType == 'Bar' %}
+<div class="w3-block w3-border w3-left-align"> &nbsp; &nbsp;{{layconfig.Titile}}</div>
+{%endif%}
+{%if layconfig.TitileType == 'FieldSet' %}
+<fieldset class="w3-border" ><legend class="w3-border">&nbsp; {{layconfig.Titile}} &nbsp;</legend>
+{%endif%}
+{% if layconfig.layvisibility == True %}
+    {% with columns=ElementPrimary.columns %}
+        <div class="w3-light-grey {{layconfig.layCss}}">
             {%for col in columns %}
-                {% with Primary=col %}
-                    {%includeTag input%}
-                {%endwith%}
+                {% if col.controltype == "Input" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag input%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "Label" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag Label%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "button" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag button%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "checkbox" %}
+                    {% with elpath=ElementPrimary.elementpath ElementPrimary=col %}
+                        {%includeTag checkbox%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "radio" %}
+                    {% with elpath=ElementPrimary.elementpath ElementPrimary=col %}
+                        {%includeTag radiobutton%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "icon" %}
+                    {% with elpath=ElementPrimary.elementpath ElementPrimary=col %}
+                        {%includeTag icon%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "select" %}
+                    {% with elpath=ElementPrimary.elementpath ElementPrimary=col %}
+                        {%includeTag dropdown%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "ButtonBar" %}
+                    {% with elpath=ElementPrimary.elementpath ElementPrimary=col %}
+                        {%includeTag ButtonBar%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "Layout" %}
+                    <div class="{{layconfig.layclass}}">
+                    {% with elpath=ElementPrimary.elementpath ElementPrimary=col %}
+                        {%includeTag layout%}
+                    {%endwith%}
+                    </div>
+                {%endif%}
+                {% if col.controltype == "section" %}
+                    {%with ElementPrimary=col%}
+                        {%includeTag assignCss controlset as layconfig%}
+                        {%includeTag setpath as elpath1%}
+                        {%includeTag findelement as elementconfig%}
+                        {%with elpath=elpath1 ElementPrimary=elementconfig%}
+                            {% if layconfig.layvisibility == True %}
+                                {%includeTag addsection %}
+                            {%endif%}
+                        {%endwith%}
+                    {%endwith%}
+                {%endif%}
             {%endfor%}
         </div>
-{% endwith %}
+    {% endwith %}
+{%endif%}
+{%if layconfig.TitileType == 'FieldSet' %}
+</fieldset>
+{%endif%}

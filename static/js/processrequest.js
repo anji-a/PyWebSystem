@@ -1,6 +1,7 @@
 /*  Used to process the from submit through Ajax call */
 function processrequest(event){
     event.preventDefault();
+    $('#overlay').show();
     var data=$(event.target).closest("form").serializeArray();
     var targetdata = $(event.target).closest("[data-find='data_root']").attr("data-element");
     //console.log($(event.target).closest(["data-element"]));
@@ -22,6 +23,7 @@ function processrequest(event){
                 html = response.html;
                 //console.log(html);
                 eval(html);
+                $('#overlay').hide();
                 /*$.each(datacontrolset, function(key,value) {
                     if(jQuery.type(value)=="object"){
                         //console.log(".............")
@@ -67,26 +69,46 @@ function processaction(actionset,event,response){
     }
 }
 
-function processeventaction(event){
+function processeventaction(event, actionset="None"){
+    $('#overlay').show();
+    //event.preventDefault();
     console.log(event);
-    var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
+    if(actionset == "None"){
+        var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
+    }else{
+        var dataset = actionset
+    }
     var targetnode = $(event.target).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
     var targetthread = $(event.target).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
     dataset.threadName = targetthread
     dataset.root_node = targetnode;
     dataset.eventtype = event.type;
+    pw().geteventdata(event, dataset)// set action data for each event
+    //console.log(dataset);
+    //dataset.refershid = $(event.target).closest("[data-uitype='section']").attr("id");// used for refresh section
+    //dataset.refreshnode = $(event.target).closest("[data-uitype='section']").attr("data-node");// used for refresh section
+    //dataset.refreshnodes =
     //dataset.roothtml = $(event.target).closest("[id='pw_new_purpose']");
     // need to update pw_new_purpose with dynamic element value
-    var elem = document.getElementById("sample");
-    if(elem != null && elem !== undefined){
+    var id =$(event.target).closest("[data-html='true']").attr("id");
+    var elem = document.getElementById(id);
+    data = {}
+    if(elem != null && elem !== undefined ){
         console.log(elem.outerHTML);
-        dataset.roothtml = elem.outerHTML;
+        //da = $(event.target).closest("[data-uitype='form']").find("input,select,textarea").serializeArray();
+        data = serializeArray(elem);
+        //console.log(da);
+        if(true){dataset.roothtml = elem.outerHTML;}// need to change logic for get entire html
     }
-    console.log(dataset);
-    data = $(event.target).serializeArray();
+
+    if(isEmpty(data)){
+        data = $(event.target).serializeArray();
+        //data = serializeArray(elem);
+    }
+        //data = $(event.target).serializeArray();
         //data1 = json.loads(dataset)
     data.push({name:'data-controlset',value:JSON.stringify(dataset)});
-
+    console.log(data);
      $.ajax({ data: data,
         type: "POST",
         url: "/UI_Include",
@@ -98,10 +120,12 @@ function processeventaction(event){
                 html = response.html;
                 console.log(html);
                 eval(html);
+                $('#overlay').hide();
 
             },
             error: function (request, status, error) {
                  console.log(request.responseText);
+                 $('#overlay').hide();
             },
             beforeSend: function() {
 
@@ -122,17 +146,19 @@ function processeventaction(event){
 }
 
 
-function processeventaction_another_function(dataset,event){
+function processeventaction_another_function(dataset,target){
     /*var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
     var targetdata = $(event.target).closest("[data-find='data_root']").attr("data-element");// used to find portal type
 
     dataset.root_data = targetdata;
     dataset.eventtype = event.type;
     console.log(dataset);*/
-    var targetnode = $(event).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
-    var targetthread = $(event).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
+    $('#overlay').show();
+    var targetnode = $(target).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
+    var targetthread = $(target).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
     dataset.root_node = targetnode;
     dataset.threadName = targetthread
+    dataset.eventtype = event.type;
     data = {}
     //console.log($(event))
     data['data-controlset']=JSON.stringify(dataset);
@@ -148,10 +174,11 @@ function processeventaction_another_function(dataset,event){
                 html = response.html;
                 console.log(html);
                 eval(html);
-
+                $('#overlay').hide();
             },
             error: function (request, status, error) {
                  console.log(request.responseText);
+                 $('#overlay').hide();
             },
             beforeSend: function() {
 

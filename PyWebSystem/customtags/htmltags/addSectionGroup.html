@@ -1,0 +1,25 @@
+{%load TagUtility%}
+{%includeTag assignCss controlset as layconfig%}
+{%if layconfig.DisplayType == "Tab" %}
+    <div data-target="py-home-tab" class="w3-container">
+        {%includeTag generatetab %}
+    </div>
+{%elif layconfig.DisplayType == "Accordion" %}
+    <div data-target="py-home-Accordion" class="w3-container">
+        {%includeTag Accordion %}
+    </div>
+{%else%}
+ {% with columns=ElementPrimary.columns %}
+    {%for col in columns %}
+        {%includeTag assignid as genid%}
+            {%with ElementPrimary=col%}
+                {%includeTag assignCss controlset as layconfig%}
+                {%includeTag setpath as elpath1%}
+                {%includeTag findelement as elementconfig%}
+                {%with elpath=elpath1 ElementPrimary=elementconfig%}
+                    {%includeTag addsection %}
+                {%endwith%}
+            {%endwith%}
+    {%endfor%}
+{%endwith%}
+{%endif%}

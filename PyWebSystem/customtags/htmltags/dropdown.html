@@ -1,0 +1,16 @@
+{%load TagUtility%}
+{%comment%}
+{%includeTag defineConfiguration col as control%}
+{%endcomment%}
+{%includeTag defineevents as events%}
+{%includeTag assignCss controlset as layconfig%}
+{%with path=ElementPrimary.elementpath%}
+<div class="{{layconfig.layclass}}">
+    <label>{{ElementPrimary.Label}}</label>
+    <select class="w3-select w3-border" name="{{ElementPrimary.property|add_path:path}}" {{events}} data-controlset='{{layconfig.controlsetstr}}'>
+{%for key, value in ElementPrimary.sourcelist.items %}
+    <option value="{{key}}" {%if ElementPrimary.value == key %}selected{%endif%}>{{value}}</option>
+{%endfor%}
+    </select>
+</div>
+{%endwith%}

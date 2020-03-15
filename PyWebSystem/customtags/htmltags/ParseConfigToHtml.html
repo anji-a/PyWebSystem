@@ -3,20 +3,32 @@
 Used to generate HTML based on config dict
 {{Primary}}
 {%endcomment%}
-{%includeTag definePrimaryNode Config as Primary%}
+{%includeTag definePrimaryNode ElementConfig as ElementPrimary%}
 
 {% autoescape off %}
-    {%for element in Primary %}
+    {%for element in ElementPrimary %}
         {% if element.controltype == "Layout" %}
-        {% with Primary=element %}
+        {% with ElementPrimary=element %}
             {%includeTag layout %}
         {% endwith %}
         {% endif %}
         {% if element.controltype == "TabGroup" %}
-            {% with Primary=element %}
+            {% with ElementPrimary=element %}
                 {%includeTag tab %}
+            {% endwith %}
+        {% endif %}
+        {% if element.controltype == "section" %}
+            {% with ElementPrimary=element %}
+                {%includeTag findelement as elementconfig%}
+                    {% with ElementPrimary=elementconfig %}
+                        {%includeTag addsection %}
+                    {% endwith %}
+            {% endwith %}
+        {% endif %}
+        {% if element.controltype == "form" %}
+            {% with ElementPrimary=element %}
+                {%includeTag form %}
             {% endwith %}
         {% endif %}
     {%endfor%}
 {% endautoescape %}
-{{Primary}}

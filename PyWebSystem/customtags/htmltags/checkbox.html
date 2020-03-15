@@ -1,0 +1,17 @@
+{%load TagUtility%}
+{%comment%}
+{%includeTag defineConfiguration col as control%}
+<div>
+    <input class="w3-check" name="{{Primary.property|add_path:path}}" value="{{Primary.property|add_flower:path}}" type="checkbox">
+    <label>{{Primary.Label}}</label>
+</div>
+{%endcomment%}
+{%with path=ElementPrimary.elementpath%}
+<div>
+    <label>{{ElementPrimary.Label}}</label>
+{%for key, value in ElementPrimary.sourcelist.items %}
+    <input class="w3-check" name="{{ElementPrimary.property|add_path:path}}" value="{{key}}" type="checkbox">
+    <label>{{value}}</label>
+{%endfor%}
+</div>
+{%endwith%}

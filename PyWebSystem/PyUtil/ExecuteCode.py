@@ -47,7 +47,7 @@ def executecode(filename1, filename2):
 
 
 def executeaction(context={}, action={}, *args, **kwargs):
-    logmessage(__name__, "warning")
+    logmessage(__name__+"--> executeaction", "warning", context)
     #print("hello", action)
     tagname = action.get("actionname", "")
     filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/PyUtil/" + tagname + ".py"
@@ -57,7 +57,7 @@ def executeaction(context={}, action={}, *args, **kwargs):
     code_obj = compile(filecode, tagname, 'exec')
     exec(code_obj, locals())
     return locals()[tagname](context, action, *args, **kwargs)
-    pass
+
 
 
 if __name__ == '__main__':

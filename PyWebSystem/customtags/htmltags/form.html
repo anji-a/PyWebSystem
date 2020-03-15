@@ -1,0 +1,8 @@
+{%load TagUtility%}
+{%includeTag findelement as elementconfig%}
+{%includeTag assignid as genid%}
+<div data-uitype="form" id="{{genid}}" data-node="{{ElementPrimary.elementpath}}">
+  {%with elpath=ElementPrimary.elementpath ElementPrimary=elementconfig%}
+    {%includeTag addsection%}
+  {%endwith%}
+</div>

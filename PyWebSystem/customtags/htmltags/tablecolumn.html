@@ -1,0 +1,19 @@
+{%load TagUtility%}
+{%includeTag assignCss controlset as layconfig%}
+{%if layconfig.generalset.controltype == "input" %}
+    {%with path=ElementPrimary.elementpath displaylable="false"%}
+    <td>
+            {%includeTag input%}
+    </td>
+    {%endwith%}
+{%elif layconfig.generalset.controltype == "icon"%}
+    <td>
+        {%with path=ElementPrimary.elementpath%}
+            {%includeTag icon%}
+        {%endwith%}
+    </td>
+{%else%}
+    <td>
+        {{ElementPrimary.value}}
+    </td>
+{%endif%}

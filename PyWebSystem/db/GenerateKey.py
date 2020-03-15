@@ -4,7 +4,9 @@ fakegen = Faker()
 
 
 def generate_key(**kwargs):
-    prefix = fakegen.name()
-    suffix = fakegen.name()
-    id = fakegen.name()
-    return prefix+"_"+id+"_"+suffix
+    prefix = kwargs.get("prefix", "")
+    suffix = kwargs.get("suffix", "")
+    if prefix == "":
+        return fakegen.name()
+    else:
+        return prefix+"_"+suffix

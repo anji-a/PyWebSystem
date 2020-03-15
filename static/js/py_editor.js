@@ -111,3 +111,7 @@ function generatesettings(parentelement){
     tabsroot.appendChild(tabcontent);*/
     return tabsroot.outerHTML;
 }
+
+function saveelementsettings(event, config){
+    console.log(event, config);
+}

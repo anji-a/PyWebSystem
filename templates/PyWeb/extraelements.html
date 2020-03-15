@@ -10,7 +10,7 @@
 <!-- used to display element controls when mouse click-->
 <div class="py-cv-canvas py-editor-toolbar displayNone" data-type="actions">
     <div>
-        <div class="fa fa-cog py-toolbar-item"></div>
+        <div class="fa fa-cog py-toolbar-item" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"opensettings"}]}]}'></div>
         <div class="fa fa-clone py-toolbar-item"></div>
         <div class="fa fa-trash-o py-toolbar-item"></div>
     </div>
@@ -20,19 +20,17 @@
 <div data-type="border" class="py-editor-toolbar displayNone" style="border-top:5px Solid #0de0d4"></div>
 
 <!-- The Modal -->
-<div id="PyModalAAA" class="modal">
-
-  <!-- Modal content -->
-  <div class="modal-content">
-    <div class="modal-header" data-header="true">
-      <span class="close" onclick="closemodel(event)">&times;</span>
-      <h2>Modal Header</h2>
-    </div>
-    <div class="modal-body" data-body="true">
+<div id="PyModalAAA" class="w3-modal">
+  <div class="w3-modal-content">
+    <header class="w3-teal" data-header="true">
+      <span class="w3-button w3-display-topright" onclick="closemodel(event)">&times;</span>
+      <!-- <h2>Modal Header</h2>-->
+    </header>
+    <div class="" data-body="true">
 
     </div>
-    <div class="modal-footer" data-footer="true">
-      <h3>Modal Footer</h3>
+    <div class="" data-footer="true">
+      <!--<h3>Modal Footer</h3>-->
     </div>
   </div>
 

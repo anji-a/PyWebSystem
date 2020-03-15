@@ -1,6 +1,6 @@
 from django import template
 from PyWebSystem.PyUtil.pw_logger import logmessage
-from django.template import Context
+from PyWebSystem.customtags.pw_addpath import addpath
 from PyWebSystem.PyUtil.ExecuteCode import exe_code_from_local, exe_tag_from_local
 register = template.Library()
 
@@ -45,7 +45,7 @@ def includeTag(parser, token):
     :return:
     """
     #print(__name__)
-    logmessage(__name__+",includeTag", "warning", token.split_contents())
+    #logmessage(__name__+",includeTag", "warning", token.split_contents())
     #tag, tag_name, config = token.split_contents()
     #tag = "includeTag "+tag_name
     #nodelist = parser.parse(('endincludeTag',))
@@ -89,3 +89,16 @@ class UpperNode(template.Node):
 @register.filter
 def index(indexable, i):
     return indexable[i]
+
+
+@register.filter
+def add_flower(value, path):
+    if value == "" or value is None:
+        return ""
+    else:
+        return '{{ '+path+'%s }}' % value
+
+
+@register.filter
+def add_path(value, path):
+    return addpath(value, path)

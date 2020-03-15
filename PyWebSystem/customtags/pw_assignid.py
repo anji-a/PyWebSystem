@@ -4,4 +4,4 @@ from PyWebSystem.PyUtil.pw_logger import logmessage
 
 def assignid(context, *args, **kwargs):
     logmessage("assignid", "warning")
-    return id_generator(6)
+    return id_generator(15)

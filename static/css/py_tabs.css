@@ -44,12 +44,14 @@
 .tablinks{
     position:relative;
 }
-.display{
-    display:block;
-}
+
 
 .nodisplay{
     display:none;
+}
+
+.display{
+    display:block;
 }
 /* Style the close button */
 .topright {
@@ -61,3 +63,8 @@
 }
 
 .topright:hover {color: red;}
+
+.active{
+    color:greenyellow;
+    background-color: lightslategray;
+}

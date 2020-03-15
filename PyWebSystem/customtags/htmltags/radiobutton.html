@@ -1,0 +1,13 @@
+{%load TagUtility%}
+{%comment%}
+{%includeTag defineConfiguration col as control%}
+{%endcomment%}
+{%with path=ElementPrimary.elementpath%}
+<div>
+    <label>{{ElementPrimary.Label}}</label>
+{%for key, value in ElementPrimary.sourcelist.items %}
+    <input class="w3-radio" name="{{ElementPrimary.property|add_path:path}}" value="{{key}}" type="radio" {%if ElementPrimary.value == key%}checked{%endif%}>
+    <label>{{value}}</label>
+{%endfor%}
+</div>
+{%endwith%}

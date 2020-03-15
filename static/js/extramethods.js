@@ -46,7 +46,12 @@ function drag(ev) {
 }
 function enterDrop(event){
       if($(event.target).closest("[data-select='true']").length>0){
-        position = event.target.closest("[data-select='true']").getBoundingClientRect();
+        node = event.target
+        if(event.target.nodeType==3){// text node verification
+            node = event.target.parentNode
+        }
+        console.log(event.target)
+        position = node.closest("[data-select='true']").getBoundingClientRect();
           left = position.left;
           topy = position.top;
           width = position.width;
@@ -87,9 +92,35 @@ function drop(ev) {
   var originevent = ev.dataTransfer.getData("originevent");
   //console.log(originevent);
   if(originevent=="Layout"){
-    addLayout(event);
+    //addLayout(event);
+    pw(event.target).addLayout(event);
   }else if(originevent=="Input"){
-    addcolumn(event,originevent);
+    //addcolumn(event,originevent);
+    pw(event.target).addinput(event,originevent);
+  }else if(originevent=="Label"){
+    pw(event.target).addLabel(event,originevent);
+  }else if(originevent=="Dropdown"){
+    pw(event.target).dropdown(event,originevent);
+  }else if(originevent=="CheckBox"){
+    pw(event.target).checkbox(event,originevent);
+  }else if(originevent=="RadioButton"){
+    pw(event.target).RadioButton(event,originevent);
+  }else if(originevent=="section"){
+    pw(event.target).addsection(event,originevent);
+  }else if(originevent=="sectiongroup"){
+    pw(event.target).addSectionGroup(event,originevent);
+  }else if(originevent=="sectionrepeat"){
+    pw(event.target).addSectionRepeat(event,originevent);
+  }else if(originevent=="buttonbar"){
+    pw(event.target).addbuttonbar(event,originevent);
+  }else if(originevent=="button"){
+    pw(event.target).addbutton(event,originevent);
+  }else if(originevent=="icon"){
+    pw(event.target).addIcon(event,originevent);
+  }else if(originevent=="repeattable"){
+    pw(event.target).addTableRepeat(event,originevent);
+  }else if(originevent=="tablecolumn"){
+    pw(event.target).addTableColumn(event,originevent);
   }else if(originevent=="Custom"){
     addCustom(event);
   }else if(originevent=="Column"){
@@ -102,7 +133,7 @@ function drop(ev) {
 
 $(document).ready(function(){
   $("[data-type='editor']").on({
-    mouseover: function(event){
+    /*mouseover: function(event){
         if(event.target.closest("[data-select='true']")!=null){
             position = event.target.closest("[data-select='true']").getBoundingClientRect();
               //console.log(event.target.closest("[data-select='true']"));
@@ -119,7 +150,7 @@ $(document).ready(function(){
     mouseout: function(event){
       $(event.target).closest("[data-select='true']").removeClass(" py-comp-select");
       $("[data-type='title']").removeClass(" displayflex");
-    },
+    },*/
     click: function(event){
       if(event.target.closest("[data-select='true']")!=null){
           position = event.target.closest("[data-select='true']").getBoundingClientRect();
@@ -152,8 +183,12 @@ function opensettings(event){
     console.log($(event.data.evt.target));
     $("[data-type='actions']").addClass(" displayNone");
     conf = $(event.data.evt.target).closest("[data-select='true']").attr("data-set");
-    actionset = {"actionset":[{"event":"click", "eventdata":[{"action":"exeaction", "actionname":"resetsettings_for_element","config":conf},{"action":"modelwindow", "form":"element_settings", "target":"PyModalAAA"}]}]};
-    processeventaction_another_function(actionset,$(event.data.evt.target));
+    id = $(event.data.evt.target).closest("[data-select='true']").attr("id");
+    //actionset = {"actionset":[{"event":"click", "eventdata":[{"action":"exeaction", "actionname":"opensettings","config":conf, "id":id},{"action":"modelwindow", "form":"element_settings", "target":"PyModalAAA"}]}]};
+    //actionset = {"actionset":[{"event":"click", "eventdata":[{"action":"opensettings"}]}]};
+    actionset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
+    processeventaction((event.data.evt), actionset);
+    //processeventaction_another_function(actionset,$(event.data.evt.target));
     //html = generatesettings($(event.data.evt.target));
     //console.log(html);
     //openmodelwindow(event,html);
@@ -170,6 +205,7 @@ function generateid(length) {
 }
 
 function openmodelwindow(event,displayhtml,target){
+    if(target==""){target="PyModalAAA"};
     document.getElementById(target).style.display = "block";
     $('#'+target).find('[data-body="true"]').html(displayhtml);
 }
@@ -184,3 +220,16 @@ function isEmpty(obj) {
     }
     return true;
 }
+$(function(){
+
+    // Create overlay and append to body:
+    $('<div id="overlay"/>').css({
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height:'100%',
+        opacity: .8,
+        background: "white url(/media/ajax-loader.gif) no-repeat center"
+    }).hide().appendTo('body');
+});

@@ -3,6 +3,7 @@ import json
 
 
 def resetsettings_for_element(context={}, action={}, *args, **kwargs):
-    logmessage("resetsettings_for_element", "warning", action)
-    root_node = context.get("root_node", "Standard")
-    context[root_node] = json.loads(action.get('config', '{}'))
+    logmessage("resetsettings_for_element", "warning", context)
+    config = json.dumps(context.get("Config", {}).get("ElementSettings", {}))
+    id = context.get("Config", {}).get("ElementSettings", {}).get("id", "")
+    context["element_html"] = "pw(event).saveelementsettings("+id+"," + config + "); closemodel(event);"

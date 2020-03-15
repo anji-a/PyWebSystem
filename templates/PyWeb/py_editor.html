@@ -9,6 +9,8 @@
             <link rel="stylesheet" href="{% static 'css/py_tabs.css' %}" >
             <link rel="stylesheet" href="{% static 'css/py_editor.css' %}" >
             <link rel="stylesheet" href="{% static 'css/py_dynamic.css' %}" >
+            <link rel="stylesheet" href="{% static 'css/PWCSS_Element.css' %}" >
+            <script type="text/javascript" src="{% static 'js/pw_scripts.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/py_tabs.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/py_util.js' %}"></script>
             <script type="text/javascript" src="{% static 'js/extramethods.js' %}"></script>
@@ -16,7 +18,7 @@
             <script type="text/javascript" src="{% static 'js/processrequest.js' %}"></script>
     </head>
     <body>
-        <div class="container layout" data-find="rootelement" data-node="{{NodeName}}" data-thread="{{portalid}}">
+        <div class="container layout" data-find="rootelement" data-uitype="form" data-node="{{NodeName}}" data-thread="{{portalid}}" id="needtorecheck">
             <div class="row h10">
                 <div class="column"></div>
             </div>
@@ -28,7 +30,7 @@
                     {% include "PyWeb/py_dragarea.html" %}
                 </div>
             </div>
+            {% include "PyWeb/extraelements.html" %}
         </div>
-    {% include "PyWeb/extraelements.html" %}
     </body>
 </html>

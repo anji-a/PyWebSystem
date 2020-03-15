@@ -9,7 +9,8 @@ class Transaction:
     _cursorlist = {}
 
     def __init__(self):
-        pass
+        self._dblistcon = {}
+        self._cursorlist = {}
 
     def get_connection(self, dbname):
         # print(self._dblist)
@@ -36,6 +37,7 @@ class Transaction:
         pass
 
     def close_transaction(self):
+        #print("close_transaction")
         try:
             for key, cur in self._cursorlist.items():
                 # print(cur)
@@ -51,6 +53,7 @@ class Transaction:
             print(sys.exc_info())
 
     def get_cursor(self, dbname):
+        #print("close_transaction", dbname, self._cursorlist)
         try:
             if dbname in self._cursorlist:
                 return self._cursorlist.get(dbname, None)

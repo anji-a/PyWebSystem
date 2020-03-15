@@ -77,6 +77,12 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 CACHES = {
     'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': 'C:\python\django_cache',
+        #'LOCATION': 'localhost:11211',
+        'TIMEOUT': None,
+    },
+    'Mem': {
         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
         #'LOCATION': '/var/tmp/django_cache',
         'LOCATION': 'localhost:11211',
@@ -147,6 +153,11 @@ STATICFILES_DIRS = [
     STATIC_DIR,
 ]
 
+# Log Display Settings
+
+LOG_DISPLAY = ['addrow', 'parsetodict', "RepeatTable", "opensettings", "parsehtmltodict"]
+
 # Login URL
 
 LOGIN_URL = '/login'
+

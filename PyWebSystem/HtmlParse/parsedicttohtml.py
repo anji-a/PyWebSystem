@@ -4,7 +4,7 @@ from django.template import Template, Context
 
 
 def parsedicttohtml(souurcedt={}):
-    logmessage(__name__, "warning", message=souurcedt)
+    logmessage("parsedicttohtml", "warning", message=souurcedt)
     html = "{% load TagUtility %}"
     elelist = souurcedt.get("elements", [])
     """
@@ -24,8 +24,8 @@ def parsedicttohtml(souurcedt={}):
     #print(html)"""
     config = json.dumps(elelist)
     html += '{%includeTag ParseConfigToHtml \'' + config + '\'%}'
-    t = Template(html)
-    c = Context({})
-    html = t.render(c)
-
+    # t = Template(html)
+    # c = Context({})
+    # html = t.render(c)
+    logmessage("parsedicttohtml", "warning", html)
     return html

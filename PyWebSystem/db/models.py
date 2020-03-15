@@ -33,18 +33,19 @@ class Model:
     def save(self, *args, **kwargs):
         # save needs to decide insert new row or update same row
         element = kwargs.get("element", {})
-        cls = element.get("PyClass")
-        metedata = get_metadata_class(cls)
+        conext = kwargs.get("conext", {})
+        cls = element.get("elementclass", "")
+        metedata = get_metadata_class(conext, cls)
         pkey = metedata.get("primarykey", "")
         cursor = self.tran.get_cursor("default")
         kwargs["cls"] = cls
         kwargs["meta"] = metedata
-        # print(self.__dict__, args[0], kwargs)
+        #print(kwargs)
         if cursor is not None:
             keycheck = False
             for key in pkey:
                 keyvalue = element.get(key, None)
-                if keyvalue is None:
+                if keyvalue is None or keyvalue == "":
                     keycheck = True  # means one of the key value has Null
             if keycheck:
                 self.insert(self, *args, **kwargs)
@@ -178,15 +179,16 @@ class Model:
                             insertRow[value] = element.get(value, "")
 
                     for value in pkey:
-                        if value is "PyKey":
-                            key = generate_key()
-                            query += ",PyKey"
+                        if value is "ElementKey":
+                            key = generate_key(prefix=element.get("ElementName", ""), suffix=element.get("CreateDate", ""))
+                            query += ",ElementKey"
                             valuequery += ", %s"
-                            insertRow["PyKey"] = key
+                            insertRow["ElementKey"] = key
                         else:
                             query += ","+value
                             valuequery += ", %s"
-                            insertRow["PyKey"] = element.get(value, "")
+                            key = generate_key(prefix=element.get("elementname", ""), suffix=element.get("createdate", ""))
+                            insertRow[value] = key
                     if "PyStream" in column_list:
                         stream = json.dumps(insertRow, default=str)
                         stream = stream.encode('utf-8')
@@ -198,20 +200,23 @@ class Model:
                 cursor.execute(query, list(insertRow.values()))
                 return "Success"
         except Exception:
+            #print(Exception)
             trace_exception(sys.exc_info())
             return None
 
     def select(self, *args, **kwargs):
         try:
             element = kwargs.get("element", {})
-            cls = element.get("PyClass")
-            metedata = get_metadata_class(cls)
+            conext = kwargs.get("conext", {})
+            cls = element.get("elementclass", "")
+            metedata = get_metadata_class(conext, cls)
             cursor = self.tran.get_cursor("default")
             kwargs["cls"] = cls
             kwargs["meta"] = metedata
             table = metedata.get("tableName")
             query = "select "
             wherecluse = ""
+            ordercluse = ""
             selectrow = []
             firstart = True
             if cursor is not None:
@@ -220,14 +225,18 @@ class Model:
                 else:
                     columns = element.get('conditions', {})
                     for key, column in columns.items():
-                        if column.get("condition", '') is 'select':
+                        if column.get("selectelement", '') is 'true':
                             if column.get("key", '') is not '':
                                 if firstart:
                                     firstart = False
                                     query += column.get("key", '')
                                 else:
                                     query += ","+column.get("key", '')
-
+                        if column.get("orderby", "") != "":
+                            if ordercluse == "":
+                                ordercluse = " order by " + column.get("key", '')+" "+column.get("orderby", "")
+                            else:
+                                ordercluse = " , " + column.get("key", '')+" "+column.get("orderby", "")
                     query += " from "+table + " where "
                 logic = element.get("logic", "").split(" ")
                 for val in logic:
@@ -249,6 +258,8 @@ class Model:
                             wherecluse += " (" + c_key + " " + c_rel + "%s)"
                             selectrow.append(c_val)
                 query += wherecluse
+                if ordercluse is not "":
+                    query += ordercluse
                 if "PyStream" in metedata.get("columns", []):
                     print(query, selectrow)
                     cursor.execute(query, selectrow)
@@ -261,7 +272,7 @@ class Model:
                         rr = {}
                         for key, column in columns.items():
                             # print(pystram, column.get("key", ''))
-                            rr[column.get("key", '')] = pystram.get(column.get("key", ''), '')
+                            rr[column.get("key", '')] = pystram.get(column.get("key", ''), '').strip()
                         rowlist.append(rr)
                     # print(rowlist)
                     return rowlist

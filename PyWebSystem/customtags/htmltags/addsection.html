@@ -1,0 +1,69 @@
+{%load TagUtility%}
+{%includeTag assignCss controlset as layconfig%}
+{%if layconfig.TitileType == 'Bar' %}
+<div class="w3-block w3-border w3-left-align"> &nbsp; &nbsp;{{layconfig.Titile}}</div>
+{%endif%}
+{%if layconfig.TitileType == 'FieldSet' %}
+<fieldset class="w3-border" ><legend class="w3-border">&nbsp; {{layconfig.Titile}} &nbsp;</legend>
+{%endif%}
+{% if layconfig.layvisibility == True %}
+{% with columns=ElementPrimary.columns %}
+{%includeTag assignid as genid%}
+        <div class="w3-container w3-light-grey" data-elementname="{{ElementPrimary.name}}" data-node="{{ElementPrimary.elementpath}}" data-uitype="section" id="{{genid}}">
+            {%for col in columns %}
+                {% if col.controltype == "Layout" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag layout %}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "TabGroup" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag tab %}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "LayoutRepeat" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag LayoutRepeat %}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "section" %}
+                    {%with ElementPrimary=col%}
+                        {%includeTag assignCss controlset as layconfig%}
+                        {%includeTag setpath as elpath1%}
+                        {%includeTag findelement as elementconfig%}
+                        {%with elpath=elpath1 ElementPrimary=elementconfig%}
+                            {% if layconfig.layvisibility == True %}
+                                {%includeTag addsection %}
+                            {%endif%}
+                        {%endwith%}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "SectionGroup" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag addSectionGroup %}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "RepeatSection" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag addRepeatSection %}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "RepeatTable" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag RepeatTable %}
+                    {%endwith%}
+                {%endif%}
+            {%endfor%}
+        </div>
+{%endwith%}
+{%endif%}
+{%if layconfig.TitileType == 'FieldSet' %}
+</fieldset>
+{%endif%}
+
+{%comment%}
+                    {%includeTag findelement as elementconfig%}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=elementconfig%}
+                        {%includeTag addsection %}
+                    {%endwith%}
+{%endcomment%}

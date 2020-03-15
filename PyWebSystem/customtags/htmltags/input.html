@@ -1,9 +1,14 @@
 {%load TagUtility%}
 {%comment%}
 {%includeTag defineConfiguration col as control%}
+{%includeTag GetElementPath ElementPrimary.elementpath ElementPrimary.property as value%}
 {%endcomment%}
 
-<div>
-    <label for="name">Name (4 to 8 characters):</label>
-    <input class="w3-input w3-border" type="text" id="name" name="name" value="{{col}}">
+{%with path=ElementPrimary.elementpath%}
+
+<div class="{{layconfig.layclass}}">
+    {%if displaylable != "false" %}<label>{{ElementPrimary.Label}}</label> {%endif%}
+    <input class="w3-input w3-border" type="text" name="{{ElementPrimary.property|add_path:path}}" value="{{ElementPrimary.value}}">
 </div>
+{%endwith%}
+
