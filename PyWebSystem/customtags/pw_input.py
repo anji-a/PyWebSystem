@@ -4,28 +4,36 @@ from PyWebSystem.HtmlParse.setElementPath import setElementPath
 import json
 from PyWebSystem.PyUtil.DickUpdate import get_val, getkeylist, get_dictvalue
 from PyWebSystem.customtags.pw_addpath import addpath
+import sys
 
 
 def input(context, *args, **kwargs):
-    logmessage("input", "warning", context["Config"].get("ElementSettings"))
-    primaryNode = context["ElementPrimary"]
-    setElementPath(context)
-    element = addpath(context["ElementPrimary"].get("property", ""), context["ElementPrimary"].get("elementpath", ""))
-    # keylist = getkeylist(element)
-    # logmessage("input", "warning", keylist)
-    # value = get_val(context, keylist)
-    value = get_dictvalue(context, element)
-    logmessage("input", "warning", value)
-    context["ElementPrimary"]["value"] = value
-    tagname = args[1]
-    filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/customtags/htmltags/" + tagname + ".html"
-    fileopen = open(filename, "r")
-    filecode = fileopen.read()
-    fileopen.close()
-    t = Template(filecode)
-    html = t.render(context)
-    context["ElementPrimary"] = primaryNode
-    return html
+    try:
+        logmessage("input", "warning", context.get("Config", {}).get("ElementSettings", {}))
+        logmessage("input", "warning", context["ElementPrimary"])
+        primaryNode = context["ElementPrimary"]
+        setElementPath(context)
+        element = addpath(context["ElementPrimary"].get("property", ""),
+                          context["ElementPrimary"].get("elementpath", ""))
+        # keylist = getkeylist(element)
+        # logmessage("input", "warning", keylist)
+        # value = get_val(context, keylist)
+        value = get_dictvalue(context, element)
+        logmessage("input", "warning", value)
+        context["ElementPrimary"]["value"] = value
+        tagname = args[1]
+        filename = "C:/Users/anjaneyulu_a/Documents/Python/Apache/htdocs/WebSystem/PyWebSystem/customtags/htmltags/" + tagname + ".html"
+        fileopen = open(filename, "r")
+        filecode = fileopen.read()
+        fileopen.close()
+        t = Template(filecode)
+        html = t.render(context)
+        context["ElementPrimary"] = primaryNode
+        return html
+    except:
+        logmessage("input", "error", exception=sys.exc_info())
+        return ""
+
 
 
 def staticinput(context, *args):

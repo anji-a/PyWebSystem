@@ -1,33 +1,20 @@
 {% load staticfiles %}
+{%load TagUtility%}
 <html>
-        <head>
-            <script type="text/javascript" src="{% static 'js/jquery-1_12_4.js' %}"></script>
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-            <link rel="stylesheet" href="{% static 'css/w3.css' %}" >
-            <!--<link rel="stylesheet" href="{% static 'css/fontawesome.css' %}" >-->
-            <link rel="stylesheet" href="{% static 'css/py_portal.css' %}" >
-            <link rel="stylesheet" href="{% static 'css/py_tabs.css' %}" >
-            <link rel="stylesheet" href="{% static 'css/py_editor.css' %}" >
-            <link rel="stylesheet" href="{% static 'css/py_dynamic.css' %}" >
-            <link rel="stylesheet" href="{% static 'css/PWCSS_Element.css' %}" >
-            <script type="text/javascript" src="{% static 'js/pw_scripts.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/py_tabs.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/py_util.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/extramethods.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/py_editor.js' %}"></script>
-            <script type="text/javascript" src="{% static 'js/processrequest.js' %}"></script>
+    <head>
+            {% include 'PyWeb/pw_CSS_JS_include.html' %}
     </head>
     <body>
-        <div class="container layout" data-find="rootelement" data-uitype="form" data-node="{{NodeName}}" data-thread="{{portalid}}" id="needtorecheck">
-            <div class="row h10">
-                <div class="column"></div>
-            </div>
-            <div class="row h90">
-                <div class="column c10">
-                    {% include "PyWeb/py_droparea.html" %}
+        <div class="container layout" data-find="worknode" data-uitype="form" data-primary="{{PrimaryNode}}" data-node="{{NodeID}}" id="needtorecheck">
+            <div class="w3-row">
+                <div class="w3-col">
+                    {% include "PyWeb/py_DevPortalHeader.html" %}
                 </div>
-                <div class="column c2">
-                    {% include "PyWeb/py_dragarea.html" %}
+            </div>
+            <div class="w3-row">
+                <div class="w3-col">
+                {%comment%}{%includeTag ParseConfigToHtml '[{"controltype": "html", "sectionname": "NewUIEditor"}]'%}{%endcomment%}
+                    {% include "PyWeb/py_DevPortalTabs.html" %}
                 </div>
             </div>
             {% include "PyWeb/extraelements.html" %}

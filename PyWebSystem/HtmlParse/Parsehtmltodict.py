@@ -1,5 +1,5 @@
 from bs4 import BeautifulSoup
-from bs4 import Comment
+from bs4 import Comment, NavigableString
 import json
 from datetime import datetime
 from PyWebSystem.PyUtil.pw_logger import logmessage
@@ -29,9 +29,12 @@ def parsehtmltodict(html=""):
     if taglist is None:
         taglist = []
     layoutelemt = []
-    for index, tag in enumerate(taglist.contents):
-        #print(tag, "\n.......")
-        if not(isinstance(tag, Comment)) and tag != "\n" and tag.attrs != {}:
+    # logmessage("parsehtmltodict", "warning", taglist.contents)
+    elements = taglist.contents
+    # logmessage("parsehtmltodict", "warning", elements)
+    for index, tag in enumerate(elements):
+        print(tag, "\n.......")
+        if not(isinstance(tag, Comment)) and not(isinstance(tag, NavigableString)) and tag != "\n" and tag.attrs != {}:
             #print(tag.attrs)
             if tag.has_attr("data-element"):
                 if tag.attrs.get("data-element", "") == "LayoutGroup":
@@ -47,6 +50,9 @@ def parsehtmltodict(html=""):
                     layele = loopsection(tag)
                     layoutelemt.append(layele)
                 elif tag.attrs.get("data-element", "") == "RepeatTable":
+                    layele = looplayout(tag)
+                    layoutelemt.append(layele)
+                elif tag.attrs.get("data-element", "") == "MenuGroup":
                     layele = looplayout(tag)
                     layoutelemt.append(layele)
     sourceDict["columns"] =layoutelemt
@@ -106,6 +112,10 @@ def looplayout(tag):
                 elif ctag.attrs.get("data-type", "") == "ColumnLayout":
                     #print(ctag.find(attrs={'data-element': 'Layout'}))
                     lay = looplayout(ctag.find(attrs={'data-element': 'LayoutGroup'}))
+                    columnlist.append(lay)
+                elif ctag.attrs.get("data-type", "") == "ColumnMenuGroup":
+                    # print(ctag.find(attrs={'data-element': 'Layout'}))
+                    lay = looplayout(ctag.find(attrs={'data-element': 'MenuGroup'}))
                     columnlist.append(lay)
                 elif ctag.attrs.get("data-type", "") == "SectionGroup":
                     #print(ctag.find(attrs={'data-element': 'Layout'}))

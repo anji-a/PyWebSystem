@@ -13,6 +13,7 @@ def findelement(context, *args, **kwargs):
     # elementname in ["LayoutGeneral", "LayoutPresentation", "LayoutSettings", "ActionSettingsWrapper", "LayoutAction", "LayoutActionFooter", "RunMethodSettings", "ModelWindowSettings", "ParameterSettings", "LayoutButtonsSettings"]
     if ElementName != "" or elementname != "":
         if ElementName == "" : ElementName = elementname
+        logmessage("findelement", "warning", ElementName)
         cache.delete(ElementName)
         if cache.get(ElementName) is None:
             model = models.Model(tran=context.get("_transaction_", ""))

@@ -199,6 +199,33 @@ domElement.prototype.addLayout = function(event){
     }
 
 }
+domElement.prototype.addMenuLayout = function(event){
+    console.log(this, $(event.target));
+    layid = this.generateid(10);
+    colid = this.generateid(10);
+    console.log(layid)
+    //starthtml="<div class='w3-row py-dashed' draggable='true' data-element='Layout' id="+layid+" data-select='true' data-cell='Layout' data-eleAdd='true' data-set='{\"General\":{\"containerformat\":\"Default\", \"layoutformat\":\"inline\", \"visibility\":\"Always\" , \"deferload\":\"deferload\"},\"Presentation\":{\"flot\":\"Left\",\"style\":\"deferload\",\"css\":\"deferload\"},\"Action\":{}}'><div class='column c12 h50px' data-removeele='true'></div></div>";
+    starthtml = '<div class="w3-row" draggable="true" data-element="MenuGroup" data-displaytype="Layout" id="'+layid+'" data-select="true" data-eleAdd="true" data-cell="MenuGroup" data-set="{}"><fieldset class="w3-border-dashed" ><legend>Menu Group</legend><div data-element="Layout"  data-row="true" data-cellformat="double"><div class="w3-col" data-removeele="true">Drag Menu Elements Here</div></div></fieldset></div>'
+    columnhtml="<div class='w3-col' draggable='true' id="+colid+" data-type='ColumnMenuGroup'>"+starthtml+"</div>";
+    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="MenuGroup"){
+        console.log($(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]);
+        if(!(isEmpty($(this).closest("[data-eleAdd='true']").find("[data-row='true']")))){
+            ele = $(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]
+            $(ele).children('[data-removeele="true"]').remove();
+            lay_html = columnhtml;
+            $(ele).append(lay_html);
+            console.log(lay_html);
+        }
+
+    }else if ($(this).closest("[data-eleAdd='true']").attr("data-element")=="SectionGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="RepeatSection"){
+        // no need to add anything
+    }else{
+        lay_html = starthtml;
+        console.log(lay_html);
+        $(this).closest("[data-eleAdd='true']").append(lay_html);
+    }
+
+}
 domElement.prototype.addSectionGroup = function(event){
     console.log(this, $(event.target));
     layid = this.generateid(10);
@@ -227,7 +254,7 @@ domElement.prototype.addSectionGroup = function(event){
 
 }
 domElement.prototype.addinput = function(event,originevent){
-    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup"){
+    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="MenuGroup"){
         if(!(isEmpty($(this).closest("[data-eleAdd='true']").find("[data-row='true']")))){
             ele = $(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]
             $(ele).children('[data-removeele="true"]').remove();
@@ -239,11 +266,22 @@ domElement.prototype.addinput = function(event,originevent){
 }
 
 domElement.prototype.addLabel = function(event,originevent){
-    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup"){
+    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="MenuGroup"){
         if(!(isEmpty($(this).closest("[data-eleAdd='true']").find("[data-row='true']")))){
             ele = $(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]
             $(ele).children('[data-removeele="true"]').remove();
             label_html = '<div class="w3-col py-dashed" draggable="true" data-select="true" data-type="Column" data-cell="Label"><label>Enter label:</label></div>';
+            $(ele).append(label_html);
+            console.log(label_html);
+        }
+    }
+}
+domElement.prototype.addMenuItem = function(event,originevent){
+    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="MenuGroup"){
+        if(!(isEmpty($(this).closest("[data-eleAdd='true']").find("[data-row='true']")))){
+            ele = $(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]
+            $(ele).children('[data-removeele="true"]').remove();
+            label_html = '<div class="w3-col py-dashed" draggable="true" data-select="true" data-type="Column" data-cell="MenuItem"><label>Menu Item</label></div>';
             $(ele).append(label_html);
             console.log(label_html);
         }
@@ -272,7 +310,7 @@ domElement.prototype.checkbox = function(event,originevent){
     }
 }
 domElement.prototype.addbutton = function(event,originevent){
-    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="ButtonBar"){
+    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="ButtonBar" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="MenuGroup"){
         if(!(isEmpty($(this).closest("[data-eleAdd='true']").find("[data-row='true']")))){
             ele = $(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]
             $(ele).children('[data-removeele="true"]').remove();
@@ -283,7 +321,7 @@ domElement.prototype.addbutton = function(event,originevent){
     }
 }
 domElement.prototype.addIcon = function(event,originevent){
-    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="ButtonBar"){
+    if($(this).closest("[data-eleAdd='true']").attr("data-element")=="LayoutGroup" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="ButtonBar" || $(this).closest("[data-eleAdd='true']").attr("data-element")=="MenuGroup"){
         if(!(isEmpty($(this).closest("[data-eleAdd='true']").find("[data-row='true']")))){
             ele = $(this).closest("[data-eleAdd='true']").find("[data-row='true']")[0]
             $(ele).children('[data-removeele="true"]').remove();
@@ -431,7 +469,74 @@ domElement.prototype.openAccordion = function(event, id){
       accordian.addClass(" w3-black");
     }
 }
-
+domElement.prototype.enablemenu = function(event, display){
+        po = event.target.getBoundingClientRect();
+        console.log($(event.target).parent().parent()[0].getBoundingClientRect());
+        parentnode_po = $(event.target).closest("[data-type='Menu']").parent()[0].getBoundingClientRect();
+            menugroup = $(event.target).closest("[data-type='Menu']").find("[data-type='MenuGroup']")[0];
+            direction = $(menugroup).attr("data-direction");
+            child_width = menugroup.getBoundingClientRect().width;
+            child_height = menugroup.getBoundingClientRect().height;
+            x=y=z=0
+            if(direction=="" || direction=="Down"){
+                x = 0;
+                y = po.height;
+                z = 0;
+            }else if(direction=="Up"){
+                x = 0;
+                y = -(child_height);
+                z = 0;
+            }else if(direction=="DownRight"){
+                x = po.width;
+                y = 0;
+                z = 0;
+            }
+            else if(direction=="DownLeft"){
+                if(child_width>po.width){
+                    width = child_width
+                }else{
+                    width = po.width
+                }
+                x = -width;;
+                y = 0;
+                z = 0;
+            }else if(direction=="UpRight"){
+                x = po.width;
+                y = -(child_height-po.height);
+                z = 0;
+            }else if(direction=="UpLeft"){
+                if(child_width>po.width){
+                    width = child_width
+                }else{
+                    width = po.width
+                }
+                x = -width;
+                y = -(child_height-po.height);
+                z = 0;
+            }
+            console.log(x,y,z, direction);
+            if(display != ""){
+            st = "position: absolute;transform: translate3d("+x+"px, "+y+"px, "+z+"px);left: 0px;top:0px;will-change: transform;display:"+display
+            }else{
+             st = "position: absolute;transform: translate3d("+x+"px, "+y+"px, "+z+"px);left: 0px;top:0px;will-change: transform;"
+            }
+            menugroup.style = st
+            //console.log(menugroup, menugroup.getBoundingClientRect());
+}
+domElement.prototype.setremianheight = function(id){
+    element = document.getElementById(id);
+    elechaild = $(element).find("[data-eleAdd='true']")[0];
+    po = elechaild.getBoundingClientRect();
+    console.log(po);
+    topx = po.top;
+    if(po.top<100){
+        topx = 200;
+        console.log(topx);
+    }
+    Height = window.innerHeight - topx - 30;
+    elechaild.style = "height:"+Height;
+    console.log(Height);
+}
 domElement.prototype.geteventdata = function(event, dataset){
     //var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
     var eventdata1 = {};
@@ -470,6 +575,10 @@ domElement.prototype.geteventdata = function(event, dataset){
                 });
                 dataset.actionset[eventkey].eventdata[key]["actiondata"] = sectionarray
                 console.log(sectionlist, sectionarray);
+            }
+            if(dataset.actionset[eventkey].eventdata[key].action=="closeTab"){
+                tabdetails = getWorkTabData(event);
+                dataset.actionset[eventkey].eventdata[key]["actiondata"] = tabdetails;
             }
         }
     }

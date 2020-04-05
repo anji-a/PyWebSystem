@@ -1,28 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
 {% load staticfiles %}
-<head>
-    <meta charset="UTF-8">
-    <!-- Bootstrap Css -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <!-- Fonts CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <!-- Jquery scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <!-- Jquery UI scripts -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Bootstrap js for modal windows and etc -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <!-- Custom scripts -->
-    <link rel="stylesheet" href="{% static 'css/PWCSS_Element.css' %}" >
-    <link rel="stylesheet" href="{% static 'css/treeview.css' %}" >
-    <script type="text/javascript" src="{% static 'js/tabs.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/modalwindow.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/portal.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/processrequest.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/treeview.js' %}"></script>
-
-</head>
-</html>
+{%load TagUtility%}
+<script type="text/javascript" src="{% static 'js/jquery-1_12_4.js' %}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="{% static 'css/w3.css' %}" >
+<!--<link rel="stylesheet" href="{% static 'css/fontawesome.css' %}" >-->
+<link rel="stylesheet" href="{% static 'css/py_portal.css' %}" >
+<link rel="stylesheet" href="{% static 'css/py_tabs.css' %}" >
+<link rel="stylesheet" href="{% static 'css/py_editor.css' %}" >
+<link rel="stylesheet" href="{% static 'css/py_dynamic.css' %}" >
+<link rel="stylesheet" href="{% static 'css/PWCSS_Element.css' %}" >
+<link rel="stylesheet" href="{% static 'css/treeview.css' %}" >
+<script type="text/javascript" src="{% static 'js/pw_scripts.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/py_tabs.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/py_util.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/extramethods.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/py_editor.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/processrequest.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/treeview.js' %}"></script>

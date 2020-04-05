@@ -9,13 +9,6 @@ function openpopup(html) {
   myWindow.document.write(html);
 }
 
-/*
-function openWindow(url="",name="New Window",target="_blank"){
-    if(url!=""){
-        window.open(url,name,target);
-    }
-}
-*/
 openwindow = function(url, verb, data, target) {
   var form = document.createElement("form");
   form.action = url;
@@ -121,6 +114,10 @@ function drop(ev) {
     pw(event.target).addTableRepeat(event,originevent);
   }else if(originevent=="tablecolumn"){
     pw(event.target).addTableColumn(event,originevent);
+  }else if(originevent=="menugroup"){
+    pw(event.target).addMenuLayout(event,originevent);
+  }else if(originevent=="menuitem"){
+    pw(event.target).addMenuItem(event,originevent);
   }else if(originevent=="Custom"){
     addCustom(event);
   }else if(originevent=="Column"){
@@ -131,53 +128,7 @@ function drop(ev) {
 
 }
 
-$(document).ready(function(){
-  $("[data-type='editor']").on({
-    /*mouseover: function(event){
-        if(event.target.closest("[data-select='true']")!=null){
-            position = event.target.closest("[data-select='true']").getBoundingClientRect();
-              //console.log(event.target.closest("[data-select='true']"));
-              left = position.left;
-              topy = position.top;
-              $(event.target).closest("[data-select='true']").addClass(" py-comp-select");
-              if($(event.target).closest("[data-select='true']").length>0){
-                  $("[data-type='title']").find("h6").text($(event.target).closest("[data-select='true']").attr("data-cell"));
-                  $("[data-type='title']").addClass(" displayflex");
-                  $("[data-type='title']").css({"top":topy-15,"left":left,"cursor":"pointer"});
-              }
-        }
-    },
-    mouseout: function(event){
-      $(event.target).closest("[data-select='true']").removeClass(" py-comp-select");
-      $("[data-type='title']").removeClass(" displayflex");
-    },*/
-    click: function(event){
-      if(event.target.closest("[data-select='true']")!=null){
-          position = event.target.closest("[data-select='true']").getBoundingClientRect();
-          positionforoptions = document.body.querySelector("[data-type='actions']").getBoundingClientRect();
-          right = position.right;
-          topy = position.top;
-          targetwidth = document.body.querySelector("[data-type='actions']").clientWidth;
-          //console.log(position,event);
-          $(".py-comp-selected").removeClass(" py-comp-selected");
-          $(event.target).closest("[data-select='true']").addClass(" py-comp-selected");
-          $("[data-type='actions']").removeClass(" displayNone");
-          $("[data-type='actions']").css({"top":topy-20,"left":right-targetwidth,"cursor":"pointer"});// set location of actions
-          $("[data-type='actions']").find(".fa-cog").off("click");// remove click event
-          $("[data-type='actions']").find(".fa-cog").on("click",{"evt":event},opensettings);// add click event
-      }else{
-        $(".py-comp-selected").removeClass(" py-comp-selected");
-        $("[data-type='actions']").addClass(" displayNone");
-      }
-    },
-    blur: function(event){
-        console.log($(event.target));
 
-       $(event.target).closest("[data-select='true']").removeClass(" py-comp-selected");
-       $("[data-type='actions']").find(".fa-cog").off("click");
-    }
-  });
-});
 
 function opensettings(event){
     console.log($(event.data.evt.target));
@@ -193,6 +144,41 @@ function opensettings(event){
     //console.log(html);
     //openmodelwindow(event,html);
 }
+$(document).on("click", ("[data-type='editor']"), function() {
+    if(event.target.closest("[data-select='true']")!=null){
+          position = event.target.closest("[data-select='true']").getBoundingClientRect();
+          //console.log(position);
+          positionforoptions = document.body.querySelector("[data-type='actions']").getBoundingClientRect();
+          right = position.right;
+          topy = position.top;
+          targetwidth = document.body.querySelector("[data-type='actions']").clientWidth;
+          //targetpo = document.body.querySelector("[data-type='actions']").getBoundingClientRect();
+          //console.log(targetpo);
+          if(targetwidth<86){
+            targetwidth = 86;
+          }
+          $(".py-comp-selected").removeClass(" py-comp-selected");
+          $(event.target).closest("[data-select='true']").addClass(" py-comp-selected");
+          $("[data-type='actions']").removeClass(" displayNone");
+          $("[data-type='actions']").css({"top":topy-20,"left":right-targetwidth,"cursor":"pointer"});// set location of actions
+          $("[data-type='actions']").find(".fa-cog").off("click");// remove click event
+          $("[data-type='actions']").find(".fa-cog").on("click",{"evt":event},opensettings);// add click event
+    }else{
+        $(".py-comp-selected").removeClass(" py-comp-selected");
+        $("[data-type='actions']").addClass(" displayNone");
+    }
+});
+$(document).on("blur", ("[data-type='editor']"), function() {
+    //console.log($(event.target));
+    $(event.target).closest("[data-select='true']").removeClass(" py-comp-selected");
+    $("[data-type='actions']").find(".fa-cog").off("click");
+});
+$(document).on("click", ("[data-type='editor']"), function() {
+    console.log($(event.target));
+    //$(event.target).closest("[data-select='true']").removeClass(" py-comp-selected");
+    //$("[data-type='actions']").find(".fa-cog").off("click");
+    pw().setremianheight('sample');
+});
 
 function generateid(length) {
    var result           = '';
@@ -232,4 +218,14 @@ $(function(){
         opacity: .8,
         background: "white url(/media/ajax-loader.gif) no-repeat center"
     }).hide().appendTo('body');
+});
+// Menu drop down calling
+$(document).on("mouseover", ("[data-type='MenuHome']"), function() {
+    po = event.target.getBoundingClientRect();
+    console.log(po);
+    classname = $(event.target).closest("[data-type='Menu']").attr("class");
+    if(classname.includes("py-menu-hover")){
+        pw().enablemenu(event, "");
+        //$("[data-type='actions']").find(".fa-cog").on("click",{"evt":event},opensettings);// add click event
+    }
 });

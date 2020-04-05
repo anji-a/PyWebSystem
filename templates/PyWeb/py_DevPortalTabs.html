@@ -1,0 +1,18 @@
+<div class="" data-target="py-home-tab" data-worktab="true">
+    <div class="w3-bar w3-black" data-target="tablinks" data-linkid="v3u077">
+            <button class="w3-bar-item w3-button tablink active" data-tabid="v3u077" data-type="TabLink"  data-target="ABsEE5" onclick="w3tabclick(event)">Home <span class="tabclose">X</span></button>
+    </div>
+    <div class="w3-container" data-target="tabcontent" data-contentid="v3u077">
+        <div data-target="ABsEE5" data-tabid="v3u077" data-type="TabData" class="nodisplay display">
+            <!--<span onclick="this.parentElement.style.display='none'" class="topright">&times</span>-->
+            <div class="w3-row">
+                <div class="w3-col"><h3>Buttons</h3></div>
+                <div class="w3-bar">
+                    <button class="w3-button w3-teal" onclick="w3openworktab(event,'abc','helloworld')">New Tab</button>
+                    <button class="w3-button w3-teal" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"exeaction","actionname":"OpenNewUIElement"}]}]}'>New Element</button>
+                    <button class="w3-button w3-teal" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"memory_check","purpose":"pw_memory"}]}]}'>Memory</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -43,4 +43,4 @@ def refreshsectionwrapper(context, elpath, sectionname, elementid):
     # html = t.render(c)
     # logmessage("refreshsection", "warning", html)
     html = "pw(event).refreshsection(\"" + elementid + "\",\"" + html + "\")"
-    context["element_html"] += html
+    context["element_html"] = context.get("element_html", "") + html

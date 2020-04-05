@@ -14,11 +14,13 @@
         {%includeTag assignid as genid%}
             {%with ElementPrimary=col%}
                 {%includeTag assignCss controlset as layconfig%}
-                {%includeTag setpath as elpath1%}
-                {%includeTag findelement as elementconfig%}
-                {%with elpath=elpath1 ElementPrimary=elementconfig%}
-                    {%includeTag addsection %}
-                {%endwith%}
+                {% if layconfig.layvisibility == True %}
+                    {%includeTag setpath as elpath1%}
+                    {%includeTag findelement as elementconfig%}
+                    {%with elpath=elpath1 ElementPrimary=elementconfig%}
+                        {%includeTag addsection %}
+                    {%endwith%}
+                {%endif%}
             {%endwith%}
     {%endfor%}
 {%endwith%}

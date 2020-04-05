@@ -23,6 +23,36 @@
 .py-cv-canvas * {
     box-sizing: border-box;
 }
+/*.py-menu-hover:hover .py-menu-content{display: block;}*/
+/*.py-menu-content:hover ..py-menu-hover:hover{display: block;}*/
+.py-menu-hover:hover > .py-menu-content{
+    display:block;
+}
+.py-menu-click:visited > .py-menu-content{
+    display:block;
+}
+.py-menu-hover{
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    /*position:absolute;*/
+}
+.py-menu-click{
+    cursor: pointer;
+    display: inline-block;
+    position: static;
+}
+.py-menu-content{
+    cursor: auto;
+    color: #000;
+    background-color: #fff;
+    display: none;
+    position: absolute;
+    min-width: 90px;
+    margin: 0;
+    padding: 0;
+    z-index: 1;
+}
 
 .py-editor-toolbar {
     position: absolute;
@@ -44,4 +74,21 @@
 
 .fa-arrow-up::before {
     content: "";
+}
+
+
+
+   #parent {
+  position: relative;
+}
+#child {
+  position: absolute;
+  right: 40px;
+  top: 100px;
+  width: 200px;
+  height: 200px;
+  background-color: #fafafa;
+  border: solid 3px #78e382;
+  font-size: 24px;
+  text-align: center;
 }

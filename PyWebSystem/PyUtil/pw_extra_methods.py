@@ -15,14 +15,35 @@ def createNode(session, NodeName):
     try:
         portalid = id_generator(20)
         session["portalid"] = portalid
-        session["NodeName"] = NodeName
+        # session["NodeName"] = "Portal"
         session[portalid] = {}
-        session[portalid]["portalid"] = portalid
-        session[portalid]["PortalName"] = "StandardNode"
-        session[portalid]["NodeName"] = NodeName
+        session[portalid]["NodeID"] = portalid
+        session[portalid]["NodeName"] = "Portal"
+        session[portalid]["PrimaryNode"] = NodeName
         session[portalid][NodeName] = {}
         session[portalid]["OperatorID"] = session["OperatorID"]
         session[portalid]["Requester"] = session["Requester"]
     except Exception:
         logmessage("createNode", "error", exception=sys.exc_info())
 
+
+def createElementNode(session, nodename, primarynode):
+    logmessage("createElementNode", "warning")
+    try:
+        NodeID = id_generator(20)
+        portalid = session["portalid"]
+        session[NodeID] = {}
+        session[NodeID]["NodeID"] = NodeID
+        session[NodeID]["NodeName"] = nodename
+        session[NodeID]["PrimaryNode"] = primarynode
+        session[NodeID][primarynode] = {}
+        session[NodeID]["OperatorID"] = session["OperatorID"]
+        session[NodeID]["Requester"] = session["Requester"]
+        session[NodeID]["Portal"] = session[portalid]
+        return session[NodeID]
+    except Exception:
+        logmessage("createElementNode", "error", exception=sys.exc_info())
+
+
+def closeoldcontext(context):
+    del context["_transaction_"]

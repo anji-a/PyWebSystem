@@ -25,22 +25,27 @@ def definenode(context, path):
         if isinstance(d, str):
             d = ""
         elif isinstance(d, list):
-            logmessage("setElementPath", "warning", index_exists(d, key))
+            # logmessage("setElementPath", "warning", [index_exists(d, key), "index"])
             if index_exists(d, key):
                 d = d[key]
             else:
                 d = d[key] = {}
         elif isinstance(d, dict) or isinstance(d, type(context)):
             re = d.get(key, None)
+            # logmessage("setElementPath", "warning", key)
             if re is None:
                 ele = ds.datast.get(key, None)
                 # ele = findelement(context, ElementName=key)
+                logmessage("definenode", "warning", [key, d])
                 if ele is None:
                     d[key] = ""
                 elif ele["type"] == "dict":
                     d[key] = {}
+                    d = d[key]
                 else:
                     d[key] = []
+                    d = d[key]
             else:
                 d = d.get(key, None)
-    logmessage("setElementPath", "warning", context.get("Config", {}).get("ElementSettings", {}))
+    # logmessage("setElementPath", "warning", [context.get("Config", {})])
+    logmessage("definenode", "warning", [context.get("Config", {}), context.get("Config", {}).get("ElementSettings", {})])

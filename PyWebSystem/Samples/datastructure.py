@@ -20,5 +20,5 @@ Params = {"type": "list", "childes": ["parameter"]}
 parameter = {"type": "dict", "childes": ["name", "value"]}
 
 
-datast = {"config": Config, "ElementSettings": ElementSettings, "General": General, "Presentation": Presentation,
+datast = {"Config": Config, "ElementSettings": ElementSettings, "General": General, "Presentation": Presentation,
           "Action": Action, "Actions": Actions, "actiontype": actiontype, "Params": Params, "parameter": parameter}

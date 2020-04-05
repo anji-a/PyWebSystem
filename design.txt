@@ -11,3 +11,4 @@
 
     data-set='{\"gt\":{\"layouttype\":\"Single\", \"visibility\":\"Always\"},\"pt\":{},\"at\":{}}'>
 ----------------Element design--------------------
+pg_ctl -D C:\Pega\PRPCPersonalEdition\pgsql\data restart

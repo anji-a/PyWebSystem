@@ -29,8 +29,8 @@ def dynamicTabGeneration(context, colums, backupPrimary):
 def staticTabGenearation(context, columns, backupPrimary):
     logmessage("staticTabGenearation", "warning")
     tabid = id_generator(6)
-    haderhtml = '<div data-target="tablinks" class="w3-bar w3-black">'
-    contenthtml = '<div data-target="tabcontent" class="w3-container w3-border">'
+    haderhtml = '<div data-target="tablinks" class="w3-bar w3-black" data-linkid="'+tabid+'">'
+    contenthtml = '<div data-target="tabcontent" class="w3-container w3-border" data-contentid="'+tabid+'">'
     tablink = ""
     tabcontent = ""
     for key, value in enumerate(columns):
@@ -51,7 +51,7 @@ def staticTabGenearation(context, columns, backupPrimary):
             tabcontent += '<div data-target="' + gen_id + '" data-type="TabData" data-tabid="'+tabid+'" class="nodisplay">'
         bodyhtml = ""
         context["ElementPrimary"] = value
-        html = "{%load TagUtility%}{%includeTag setpath as elpath1%} {%includeTag findelement as elementconfig%} {%with elpath=elpath1 ElementPrimary=elementconfig%} {%includeTag addsection %} {%endwith%}"
+        html = "{%load TagUtility%}{%includeTag assignCss controlset as layconfig%}{% if layconfig.layvisibility == True %}{%includeTag setpath as elpath1%} {%includeTag findelement as elementconfig%} {%with elpath=elpath1 ElementPrimary=elementconfig%} {%includeTag addsection %} {%endwith%}{%endif%}"
         logmessage("staticTabGenearation", "warning", html)
         t = Template(html)
         bodyhtml += t.render(context)

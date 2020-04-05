@@ -9,6 +9,7 @@ from django.core.cache import cache
 from django.core.cache import caches
 from PyWebSystem.PyUtil.pw_extra_methods import createNode
 from PyWebSystem.PyUtil.pw_logger import logmessage
+from PyWebSystem.PyUtil.pw_ui_include import pw_ui_include
 
 
 def index(request):
@@ -32,12 +33,14 @@ def login_app(request):
                 session = get_session(request.session.session_key)
                 session["OperatorID"] = OperatorID
                 session["Requester"] = Requester
-                createNode(session, StandardNode)
+                if session.get("portalid", "") == "":  # it will skip to create new Portal NOde in session while refresh
+                    createNode(session, StandardNode)
                 update_session(session)
                 #print(session, "\n....................")
                 logmessage("login_app", "warning", session)
+                return pw_ui_include(request, callingFrom="login_app")
                 # return render(request, 'PyWeb/workspace.html', context=session) used to check for old code
-                return render(request, 'PyWeb/py_editor.html', context=session)
+                # return render(request, 'PyWeb/py_editor.html', context=session)
             else:
                 return render(request, 'PyWeb/login.html',
                               context={'login_message': "Login not success Please try to re login"})

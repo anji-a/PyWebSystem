@@ -70,18 +70,19 @@ function processaction(actionset,event,response){
 }
 
 function processeventaction(event, actionset="None"){
+    event.stopPropagation();
     $('#overlay').show();
-    //event.preventDefault();
+    event.preventDefault();
     console.log(event);
     if(actionset == "None"){
         var dataset = jQuery.parseJSON($(event.target).attr("data-controlset") || '{}');
     }else{
         var dataset = actionset
     }
-    var targetnode = $(event.target).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
-    var targetthread = $(event.target).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
-    dataset.threadName = targetthread
-    dataset.root_node = targetnode;
+    var targetprimary = $(event.target).closest("[data-find='worknode']").attr("data-primary");// used to find portal type
+    var targetnode = $(event.target).closest("[data-find='worknode']").attr("data-node");// used to find the user thread
+    dataset.Node = targetnode
+    dataset.Primary = targetprimary;
     dataset.eventtype = event.type;
     pw().geteventdata(event, dataset)// set action data for each event
     //console.log(dataset);
@@ -98,7 +99,7 @@ function processeventaction(event, actionset="None"){
         //da = $(event.target).closest("[data-uitype='form']").find("input,select,textarea").serializeArray();
         data = serializeArray(elem);
         //console.log(da);
-        if(true){dataset.roothtml = elem.outerHTML;}// need to change logic for get entire html
+        if(false){dataset.roothtml = elem.outerHTML;}// need to change logic for get entire html
     }
 
     if(isEmpty(data)){
@@ -120,6 +121,7 @@ function processeventaction(event, actionset="None"){
                 html = response.html;
                 console.log(html);
                 eval(html);
+                //eval("pw().setremianheight('sample');");
                 $('#overlay').hide();
 
             },
@@ -154,10 +156,14 @@ function processeventaction_another_function(dataset,target){
     dataset.eventtype = event.type;
     console.log(dataset);*/
     $('#overlay').show();
-    var targetnode = $(target).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
+    /*var targetnode = $(target).closest("[data-find='rootelement']").attr("data-node");// used to find portal type
     var targetthread = $(target).closest("[data-find='rootelement']").attr("data-thread");// used to find the user thread
     dataset.root_node = targetnode;
-    dataset.threadName = targetthread
+    dataset.threadName = targetthread*/
+    var targetprimary = $(target).closest("[data-find='worknode']").attr("data-primary");// used to find portal type
+    var targetnode = $(target).closest("[data-find='worknode']").attr("data-node");// used to find the user thread
+    dataset.Node = targetnode
+    dataset.Primary = targetprimary;
     dataset.eventtype = event.type;
     data = {}
     //console.log($(event))

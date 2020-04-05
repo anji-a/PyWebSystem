@@ -8,10 +8,12 @@ from PyWebSystem.PyUtil.addrow import addrow
 from PyWebSystem.PyUtil.refreshothersection import refreshothersection
 from PyWebSystem.PyUtil.previewelement import previewelement
 from PyWebSystem.PyUtil.opensettings import opensettings
+from PyWebSystem.PyUtil.closeTab import closeTab
 
 
 def process_event(context={}, *args, **kwargs):
-    logmessage(__name__, "warning", context)
+    logmessage("process_event", "warning", context)
+    # kwargs["params"]["session"] = session  # it will used to create new Node
     eventdata = context.get("Config", {}).get("EventData", {})
     controldata = eventdata.get("data-controlset", {})
     actionset = controldata.get("actionset", [])
@@ -43,3 +45,5 @@ def process_event(context={}, *args, **kwargs):
                     previewelement(context, action, params=kwargs.get("params", {}))
                 elif action.get("action", "") == "opensettings":
                     opensettings(context, action, params=kwargs.get("params", {}))
+                elif action.get("action", "") == "closeTab":
+                    closeTab(context, action, params=kwargs.get("params", {}))

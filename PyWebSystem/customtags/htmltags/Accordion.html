@@ -4,6 +4,7 @@
         {%includeTag assignid as genid%}
             {%with ElementPrimary=col%}
                 {%includeTag assignCss controlset as layconfig%}
+                {% if layconfig.layvisibility == True %}
                 <button onclick="pw().openAccordion(event,'{{genid}}')" class="w3-button w3-block w3-left-align {%if layconfig.Active == 'true'%} Active{%else%} w3-black{%endif%}">{{layconfig.Titile}}</button>
                 <div id="{{genid}}" class="w3-hide w3-container {%if layconfig.Active == 'true'%} w3-show{%endif%}">
                 {%includeTag setpath as elpath1%}
@@ -12,6 +13,7 @@
                     {%includeTag addsection %}
                 {%endwith%}
                 </div>
+                {%endif%}
             {%endwith%}
     {%endfor%}
 {%endwith%}

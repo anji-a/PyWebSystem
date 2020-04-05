@@ -1,22 +1,22 @@
-<div id="pw_memory_window">
+{% load TagUtility %}
+{% if selectkey == '' %}
+<div id='pw_memory_window'>
 <div>
-    {% include "PyWeb/pw_CSS_JS_include.html" %}
+    {% include 'PyWeb/pw_CSS_JS_include.html' %}
 </div>
-<div class="container-flud bg-light" data-find="data_root" data-element={{context.selected_dick.root_data}}>
-    <div class="row no-gutters h100">
-        <div class="col-3 border border-primary">
+<div class='w3-container' data-find='data_root' style='background: #c1c1e3;height: 100%;'>
+    <div class='w3-row'>
+        <div class='w3-col s4 w3-border' style='height: 100%;'>
             {% autoescape off %}
-                {% load TagUtility %}{% tag_utility pw_tag="treeview" scope=context%}
+                {%includeTag ParseConfigToHtml '[{\"controltype\": \"treeview\"}]'%}
             {% endautoescape %}
         </div>
-        <div class="col-9 border border-primary p-1" id="divId">
-            <h3>{{ context.selected_dick.select_dict}}</h3>
-            {% for key, value in context.selected_dick.items%}
-
-                <div class="row border no-gutters"><div class="col-5 border">{{key}}</div><div class="col-7 border">{{value}}</div></div>
-            {%endfor%}
-
+        <div class='w3-col s8 w3-border' id='divId' style='height: 100%;'>
+            {%includeTag ParseConfigToHtml '[{\"controltype\": \"displaydict\"}]'%}
         </div>
     </div>
 </div>
 </div>
+{%else%}
+            {%includeTag ParseConfigToHtml '[{\"controltype\": \"displaydict\"}]'%}
+{%endif%}

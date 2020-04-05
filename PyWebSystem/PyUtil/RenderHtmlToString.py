@@ -8,7 +8,7 @@ from PyWebSystem.HtmlParse.parsedicttohtml import parsedicttohtml
 
 
 def render_html(context={}, conf={}):
-    logmessage("render_html", "warning", context)
+    logmessage("render_html", "warning", context.get("Config", {}).get("ElementSettings", {}))
     #print("........", context.get("element", ""))
     if context.get("data_element", '') == "static":
         # html = render_to_string('PyWeb/pw_screen_render.html', context={"context": context})
@@ -31,8 +31,8 @@ def render_html(context={}, conf={}):
         html = parsedicttohtml(conf)
         # html = context.get("element", "")
     t = Template(html)
-    if len(context["Standard"].get("Person", {})) == 0:
-        context["Standard"]["Person"] = {"anji":{"Name": "Anji"}, "adhi":{"Name": "Adhi"}}
+    #if len(context["Standard"].get("Person", {})) == 0:
+        #context["Standard"]["Person"] = {"anji":{"Name": "Anji"}, "adhi":{"Name": "Adhi"}}
     # if len(context["Config"].get("ElementSettings", {}).get("Action", {}).get("Actions", [])) == 0:
         # context["Config"].get("ElementSettings", {})["Action"] = {}
         # context["Config"].get("ElementSettings", {}).get("Action", {})["Actions"] = []

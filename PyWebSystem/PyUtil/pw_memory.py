@@ -1,11 +1,13 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from PyWebSystem.PyUtil.GetSessionObject import get_session, update_session
-from PyWebSystem.PyUtil.DickUpdate import process_request_dick, key_list, get_val
-import json
+from PyWebSystem.PyUtil.DickUpdate import process_request_dick, key_list, get_val, get_dictvalue
+import json, sys
 from django.template.loader import render_to_string
 from PyWebSystem.PyUtil.RenderHtmlToString import render_html
 from bs4 import BeautifulSoup
+from PyWebSystem.PyUtil.pw_logger import logmessage
+
 
 
 @csrf_exempt
@@ -30,11 +32,31 @@ def memory_check(request):
 
 
 def memory_verification(context={}, action={}, *args, **kwargs):
-    params = kwargs.get("params", {})
-    context["element"] = action.get("purpose", "")
-    context["data_element"] = "static"
-    session = get_session(params.get("sessionid", ""))
-    keylist = key_list(action.get("select_dict", "$DOperatorID"))
+    try:
+        logmessage("memory_verification", "warning", context)
+        params = kwargs.get("params", {})
+        context["element"] = action.get("purpose", "")
+        context["data_element"] = "static"
+        session = get_session(params.get("sessionid", ""))
+        portalid = session["portalid"]
+        key = action.get("select_dict", portalid)
+        session["key"] = key
+        session["selectkey"] = action.get("select_dict", "")
+        # selected_dick = get_dictvalue(session, key)
+        # logmessage("memory_verification", "warning", selected_dick)
+        # session["selected_dick"] = selected_dick
+        # selected_dick["select_dict"] = key
+        session["_transaction_"] = context["_transaction_"]
+        conf = {}
+        conf["elements"] = [{"controltype": "html", 'sectionname': "MemoryVerification"}]  # it should be list
+        html = render_html(session, conf)
+        if action.get("select_dict", "") == "":
+            context["element_html"] = "var memorywindow = window.open('', 'Memory_check', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=800,height=800'); memorywindow.document.write(\"" + html + "\");"
+        else:
+            context["element_html"] = "$('#" + action.get("target", "pw_memory_window") + "').html(\"" + html + "\")"
+    except:
+        logmessage("memory_verification", "error", exception=sys.exc_info())
+    """keylist = key_list(action.get("select_dict", "$DOperatorID"))
     print(keylist)
     selected_dick = get_val(session, keylist)
     session["selected_dick"] = selected_dick
@@ -46,7 +68,7 @@ def memory_verification(context={}, action={}, *args, **kwargs):
     html = soup.find(id=action.get("target", "pw_memory_window"))
     html = str(html)
     #print(html)
-    print(session)
+    # print(session)
     html = "".join([line.strip("\n\t") for line in html])
     html = html.replace('"', '\\"')
     html = html.replace("/*", "\\/*")
@@ -58,3 +80,4 @@ def memory_verification(context={}, action={}, *args, **kwargs):
             context["element_html"] = "$('#"+action.get("target", "pw_memory_window")+"').html(\"" + html + "\")"
     else:
         context["element_html"] += "var memorywindow = window.open('', 'Memory_check', 'toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=800,height=800'); memorywindow.document.write(\"" + html + "\");"
+    """

@@ -157,7 +157,7 @@ def get_dictvalue(s, path):
     if path == "" or path == -1:
         return ""
     keylist = getkeylist(path)
-    logmessage("get_dictvalue", "warning", keylist)
+    logmessage("get_dictvalue", "warning", [keylist, s.get("Config", {}).get("ElementSettings", {})])
     val, successful = get_furthest(s, keylist)
     if successful:
         return val

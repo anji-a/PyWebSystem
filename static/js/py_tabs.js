@@ -105,8 +105,10 @@ function opencollapse(event){
 function w3tabclick(event){
     tabtargetid = $(event.target).attr('data-tabid');
     tabgroup = $(event.target).closest('[data-target="py-home-tab"]');
-    tabtarget = tabgroup.find('[data-target="tabcontent"]');
-    tablinks = tabgroup.find('[data-target="tablinks"]');
+    //tabtarget = tabgroup.find('[data-target="tabcontent"]');
+    //tablinks = tabgroup.find('[data-target="tablinks"]');
+    tablinks = tabgroup.find('[data-linkid="'+tabtargetid+'"]');
+    tabtarget = tabgroup.find('[data-contentid="'+tabtargetid+'"]');
     tabid = $(event.target).attr('data-target');
     $(tablinks.find('[data-tabid="'+tabtargetid+'"]')).each(function(){
         i = $( this );
@@ -125,3 +127,93 @@ function w3tabclick(event){
         }
     });
 }
+
+function w3openworktab(event, tabname, tabcontent ){
+    tabavilable = false;
+    worktab = $(document).find('[data-worktab="true"]')[0];
+    tabid = $($(worktab).find('[data-target="tablinks"]')[0]).attr("data-linkid");
+    tablinks = $(worktab).find('[data-linkid="'+tabid+'"]');
+    $(tablinks.find('[data-tabid="'+tabid+'"]')).each(function(){
+        console.log($(this), this.textContent);
+        if( this.textContent.includes(tabname)){
+            tabavilable = true;
+            contentid = $(this).attr('data-target');
+        }
+    });
+    if(tabavilable== false){
+        tabcontentid = pw().generateid(10);
+        tablink = '<button class="w3-bar-item w3-button tablink" data-tabid="'+tabid+'" data-type="TabLink"  data-target="'+tabcontentid+'" onclick="w3tabclick(event)">'+tabname+'<span class="tabclose" onclick="processeventaction(event)" data-controlset=\'{"actionset":[{"event":"click", "eventdata":[{"action":"closeTab"}]}]}\'>X</span></button>';
+        tabcontent ='<div data-target="'+tabcontentid+'" data-tabid="'+tabid+'" data-type="TabData" class="nodisplay">'+tabcontent+'</div>';
+        $(worktab).find('[data-linkid="'+tabid+'"]').append(tablink);
+        $(worktab).find('[data-contentid="'+tabid+'"]').append(tabcontent);
+        w3activateworkTab(worktab, tabid, tabcontentid);
+    }else{
+        //tabcontent ='<div data-target="'+tabcontentid+'" data-tabid="'+tabid+'" data-type="TabData" class="nodisplay">'+tabcontent+'</div>';
+        $(worktab).find('[data-contentid="'+tabid+'"]').find('[data-target="'+contentid+'"]').html(tabcontent);
+        w3activateworkTab(worktab, tabid, tabcontentid);
+    }
+    console.log(worktab);
+}
+
+function w3activateworkTab(worktabs,tabid, contentid){
+    tablinks = $(worktabs).find('[data-linkid="'+tabid+'"]');
+    tabtarget = $(worktabs).find('[data-contentid="'+tabid+'"]');
+    $(tablinks.find('[data-tabid="'+tabid+'"]')).each(function(){
+        i = $( this );
+        //console.log(i);
+        i.removeClass(" active");
+        if (i.attr('data-target')==contentid){
+            i.addClass(" active");
+        }
+    });
+    $(tabtarget.find('[data-tabid="'+tabid+'"]')).each(function(){
+        i = $( this );
+        //console.log(i);
+        i.removeClass(" display");
+        if (i.attr('data-target')==contentid){
+            i.addClass(" display");
+        }
+    });
+}
+
+function getWorkTabData(event){
+    tabdetails = {}
+    tabcontentid = $(event.target).closest('[data-type="TabLink"]').attr("data-target");
+    tabid = $(event.target).closest('[data-type="TabLink"]').attr("data-tabid");
+    worktab = $(event.target).closest('[data-worktab="true"]')[0];
+    tabcontent = $(worktab).find('[data-contentid="'+tabid+'"]');
+    tabdetails.tabid = tabid;
+    tabdetails.tabcontentid = tabcontentid;
+    $(tabcontent.find('[data-tabid="'+tabid+'"]')).each(function(){
+        i = $( this );
+        if (i.attr('data-target')==tabcontentid){
+            worknode = i.find('[data-find="worknode"]').attr("data-node");
+            tabdetails.worknode = worknode;
+        }
+    });
+    return tabdetails;
+}
+
+function w3closeworktab(event, tabid, tabcontentid){
+    worktab = $(event.target).closest('[data-worktab="true"]')[0];
+    tablinks = $(worktab).find('[data-linkid="'+tabid+'"]');
+    tabtarget = $(worktab).find('[data-contentid="'+tabid+'"]');
+    $(tablinks.find('[data-tabid="'+tabid+'"]')).each(function(){
+        i = $( this );
+        if (i.attr('data-target')==tabcontentid){
+            i.remove();
+            return false;
+        }
+    });
+    $(tabtarget.find('[data-tabid="'+tabid+'"]')).each(function(){
+        i = $( this );
+        if (i.attr('data-target')==tabcontentid){
+            i.remove();
+            return false;
+        }else{
+            contentid = i.attr('data-target')
+        }
+    });
+    w3activateworkTab(worktab, tabid, contentid);
+}
+

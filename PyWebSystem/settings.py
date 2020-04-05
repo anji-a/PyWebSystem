@@ -155,7 +155,7 @@ STATICFILES_DIRS = [
 
 # Log Display Settings
 
-LOG_DISPLAY = ['addrow', 'parsetodict', "RepeatTable", "opensettings", "parsehtmltodict"]
+LOG_DISPLAY = ["ParseConfigToHtml", "OpenNewUIElement", "memory_verification", "treeview", "closeTab"]
 
 # Login URL
 

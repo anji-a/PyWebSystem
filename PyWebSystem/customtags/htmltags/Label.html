@@ -1,5 +1,6 @@
 {%load TagUtility%}
-<div>
+{%includeTag assignCss controlset as colconfig%}
+<div class="{{layclass}} {{colconfig.flot}}">
     <label>{{ElementPrimary.labelstart}}</label>
     <label>{{ElementPrimary.value}}</label>
     <label>{{ElementPrimary.labelend}}</label>

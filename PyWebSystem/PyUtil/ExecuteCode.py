@@ -11,7 +11,7 @@ def exe_code_from_local(context, *args, **kwargs):
         fileopen.close()
         code_obj = compile(filecode, tagname, 'exec')
         exec(code_obj, locals())
-        #print(kwargs)
+        # print(locals(), globals())
         return locals()[tagname](context, *args, **kwargs)
 
 

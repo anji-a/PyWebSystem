@@ -9,11 +9,16 @@
 {% if layconfig.layvisibility == True %}
 {% with columns=ElementPrimary.columns %}
 {%includeTag assignid as genid%}
-        <div class="w3-container w3-light-grey" data-elementname="{{ElementPrimary.name}}" data-node="{{ElementPrimary.elementpath}}" data-uitype="section" id="{{genid}}">
+        <div class="" data-elementname="{{ElementPrimary.name}}" data-node="{{ElementPrimary.elementpath}}" data-uitype="section" id="{{genid}}">
             {%for col in columns %}
                 {% if col.controltype == "Layout" %}
                     {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
                         {%includeTag layout %}
+                    {%endwith%}
+                {%endif%}
+                {% if col.controltype == "MenuGroup" %}
+                    {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                        {%includeTag MenuGroup %}
                     {%endwith%}
                 {%endif%}
                 {% if col.controltype == "TabGroup" %}

@@ -20,6 +20,7 @@ def dropdown(context, *args, **kwargs):
         primaryNode["sourcelist"] = result
     # keylist = getkeylist(element)
     # value = get_val(context, keylist)
+    logmessage("dropdown", "warning", element)
     value = get_dictvalue(context, element)
     context["ElementPrimary"]["value"] = value
     tagname = args[1]

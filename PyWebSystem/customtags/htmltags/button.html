@@ -1,8 +1,8 @@
 {%load TagUtility%}
 {%with path=ElementPrimary.elementpath%}
 {%includeTag defineevents as events%}
-{%includeTag assignCss controlset as layconfig%}
-<div>
-    <input class="w3-button w3-teal" type="button" value="{{ElementPrimary.Label}}" {{events}} data-controlset='{{layconfig.controlsetstr}}'>
+{%includeTag assignCss controlset as colconfig%}
+<div class="{{layclass}} {{colconfig.flot}}">
+    <input class="w3-button w3-teal" type="button" {{colconfig.generalset.DataElements}} value="{{ElementPrimary.Label}}" {{events}} data-controlset='{{colconfig.controlsetstr}}'>
 </div>
 {%endwith%}

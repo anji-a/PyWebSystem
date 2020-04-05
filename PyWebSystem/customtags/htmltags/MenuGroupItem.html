@@ -1,0 +1,39 @@
+{%load TagUtility%}
+{%includeTag assignCss controlset as layconfig%}
+{% if layconfig.layvisibility == True %}
+    {% with columns=ElementPrimary.columns %}
+        <div class="w3-bar-item py-menu-hover {{layconfig.flot}}" style="position:relative;" data-type="Menu">
+            <button class="w3-button w3-teal" data-type="MenuHome">{{ElementPrimary.Label}}</button>
+            <div class="py-menu-content w3-bar-block w3-card-4" data-type="MenuGroup" data-direction="{{layconfig.generalset.MenuDirection}}">
+        {%for col in columns %}
+            {% if col.controltype == "MenuGroup" %}
+                {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                    {%includeTag MenuGroupItem %}
+                {%endwith%}
+            {%endif%}
+            {% if col.controltype == "Input" %}
+            <div class="w3-bar-item">
+                {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                    {%includeTag input%}
+                {%endwith%}
+            </div>
+            {%endif%}
+            {% if col.controltype == "Label" %}
+            <div class="w3-bar-item">
+                {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                    {%includeTag Label%}
+                {%endwith%}
+            </div>
+            {%endif%}
+            {% if col.controltype == "button" %}
+            <div class="w3-bar-item">
+                {%with elpath=ElementPrimary.elementpath ElementPrimary=col%}
+                    {%includeTag button%}
+                {%endwith%}
+            </div>
+            {%endif%}
+        {%endfor%}
+            </div>
+        </div>
+    {%endwith%}
+{%endif%}

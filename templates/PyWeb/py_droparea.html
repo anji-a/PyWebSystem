@@ -1,13 +1,14 @@
-<div id="sample" data-html= "true" data-uitype="section" data-elementname="LayoutSettings" data-Dir="PyWeb" data-DirVerion="1:1" data-controltype="section" data-elementclass="element" class="w3-row">
-    <div class="w3-col h5 w3-bar" >
-        <button class="w3-button w3-teal w3-right" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"exeaction","actionname":"parsetodict"}]}]}'>Save</button>
-        <button class="w3-button w3-teal w3-right" onclick="processeventaction(event)" data-controlset='{"actionset":[{"event":"click", "eventdata":[{"action":"previewelement" }]}]}'>Preview</button>
-    </div>
-    <div  class="w3-col h95 py-dashed" data-type="editor" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="enterDrop(event)" ondragleave="leaveDrop(event)" ondragstart="drag(event)"><!-- data-type editor used to fire mouse over/out-->
-        <div class="h100 pycontainer_ul" data-eleAdd="true" data-parse="true">
+{%load TagUtility%}
+<!--LayoutSettings-->
+<div id="sample" data-html= "true" data-uitype="section" data-elementname="ElementTypesMenu" data-Dir="PyWeb" data-DirVerion="1:1" data-controltype="section" data-elementclass="element" class="w3-row">
+    {%includeTag ParseConfigToHtml '[{"controltype": "section", "sectionname": "ElementTypesMenu"}]'%}
+    <div  class="w3-col py-dashed" data-type="editor" ondrop="drop(event)" ondragover="allowDrop(event)" ondragenter="enterDrop(event)" ondragleave="leaveDrop(event)" ondragstart="drag(event)"><!-- data-type editor used to fire mouse over/out-->
+        <div class="pycontainer_ul" data-eleAdd="true" data-parse="true">
             <!-- will add dynamic-->
 
         </div>
     </div>
 </div>
-
+<script>
+    pw().setremianheight("sample");
+</script>

@@ -68,3 +68,9 @@
     color:greenyellow;
     background-color: lightslategray;
 }
+.tabclose:hover{color:#fff!important;background-color:#2196F3!important;display:block;}
+.tabclose{
+    float: right;
+    cursor: pointer;
+    margin-left:3px;
+}

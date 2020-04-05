@@ -38,17 +38,26 @@ def update_request(request=None, session={}, *args, **kwargs):
     kwargs.get("params", {})["sessionid"] = request.session.session_key
     my_dic = request.POST.dict()
     #print(my_dic)
-    logmessage("update_request", "warning", my_dic)
     controlset = json.loads(my_dic.get("data-controlset", '{}'))
+    logmessage("update_request", "warning", controlset)
     my_dic["data-controlset"] = controlset
     #print(my_dic)
     #session = get_session(request.session.session_key)
     # get node data
-    node = session.get(my_dic.get("data-controlset", {}).get("threadName", ""))
+    nodename = my_dic.get("data-controlset", {}).get("Node", "")
+    if nodename == "":
+        nodename = session.get("portalid", "")
+    node = session.get(nodename)
+    # print(my_dic, node)
     #root_obj = session.get(my_dic.get("data-controlset", {}).get("root_data", session.get("Requester", "").get("sessionid", "")), {})
     #process_request_dick(my_dic, node)
-    update_context(my_dic, node)
-    context = node
+    if isinstance(node, dict):
+        update_context(my_dic, node)
+        context = node
+    else:
+        context = {}
+        context["Config"] = {}
+        context["Config"]["EventData"] = my_dic
     #print(session)
     logmessage("update_request", "warning", context)
     return context

@@ -37,6 +37,7 @@ $.fn.extend({
       });
         //fire event to open branch if the li contains an anchor instead of text
         tree.find('.branch>a').each(function () {
+            console.log(this);
             $(this).on('click', function (e) {
                 $(this).closest('li').click();
                 e.preventDefault();
@@ -44,6 +45,7 @@ $.fn.extend({
         });
         //fire event to open branch if the li contains a button instead of text
         tree.find('.branch>button').each(function () {
+            console.log(this);
             $(this).on('click', function (e) {
                 $(this).closest('li').click();
                 e.preventDefault();
